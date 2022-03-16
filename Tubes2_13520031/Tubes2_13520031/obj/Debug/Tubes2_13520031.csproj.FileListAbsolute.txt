@@ -1,0 +1,10 @@
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Tubes2_13520031.exe.config
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Tubes2_13520031.exe
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Tubes2_13520031.pdb
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.AssemblyReference.cache
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.Form1.resources
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.Properties.Resources.resources
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.GenerateResource.cache
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.CoreCompileInputs.cache
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.exe
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.pdb

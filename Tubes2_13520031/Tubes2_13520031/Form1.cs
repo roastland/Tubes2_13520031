@@ -36,7 +36,7 @@ namespace Tubes2_13520031
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                label3.Text = folderBrowserDialog1.SelectedPath;
+                directoryChoosen.Text = folderBrowserDialog1.SelectedPath;
             } 
         }
 
@@ -51,6 +51,36 @@ namespace Tubes2_13520031
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

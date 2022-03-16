@@ -8,3 +8,8 @@ C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csp
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.CoreCompileInputs.cache
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.exe
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.pdb
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\AutomaticGraphLayout.dll
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\AutomaticGraphLayout.Drawing.dll
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Microsoft.Msagl.GraphViewerGdi.dll
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Microsoft.Msagl.WpfGraphControl.dll
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.CopyComplete

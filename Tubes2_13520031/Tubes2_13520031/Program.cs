@@ -38,7 +38,7 @@ namespace Tubes2_13520031
 
             //associate the viewer with the form 
             form.SuspendLayout();
-            viewer.Dock = System.Windows.Forms.DockStyle.Right;
+            viewer.Dock = System.Windows.Forms.DockStyle.Fill;
             viewer.ToolBarIsVisible = false;
             form.addGraphToPanel(viewer);
             form.ResumeLayout();

@@ -112,7 +112,17 @@ namespace Tubes2_13520031
 
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+        private void graphPanel_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void outputTextPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void fileNamePanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

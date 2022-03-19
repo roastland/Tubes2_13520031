@@ -96,7 +96,7 @@ namespace Tubes2_13520031
             this.searchButtonPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.searchButtonPanel.Location = new System.Drawing.Point(0, 0);
             this.searchButtonPanel.Name = "searchButtonPanel";
-            this.searchButtonPanel.Size = new System.Drawing.Size(507, 581);
+            this.searchButtonPanel.Size = new System.Drawing.Size(507, 726);
             this.searchButtonPanel.TabIndex = 8;
             // 
             // searchButton
@@ -125,6 +125,7 @@ namespace Tubes2_13520031
             // 
             // searchMethod
             // 
+            this.searchMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.searchMethod.FormattingEnabled = true;
             this.searchMethod.Items.AddRange(new object[] {
             "BFS",
@@ -133,7 +134,6 @@ namespace Tubes2_13520031
             this.searchMethod.Name = "searchMethod";
             this.searchMethod.Size = new System.Drawing.Size(121, 24);
             this.searchMethod.TabIndex = 7;
-            this.searchMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // fileNamePanel
             // 
@@ -147,6 +147,7 @@ namespace Tubes2_13520031
             this.fileNamePanel.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.fileNamePanel.Size = new System.Drawing.Size(507, 120);
             this.fileNamePanel.TabIndex = 10;
+            this.fileNamePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.fileNamePanel_Paint);
             // 
             // findAllOccurence
             // 
@@ -242,38 +243,44 @@ namespace Tubes2_13520031
             // 
             this.outputTextPanel.BackColor = System.Drawing.Color.White;
             this.outputTextPanel.Controls.Add(this.outputText);
-            this.outputTextPanel.Location = new System.Drawing.Point(506, 0);
+            this.outputTextPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.outputTextPanel.Location = new System.Drawing.Point(507, 0);
             this.outputTextPanel.Name = "outputTextPanel";
-            this.outputTextPanel.Size = new System.Drawing.Size(793, 77);
+            this.outputTextPanel.Size = new System.Drawing.Size(1014, 77);
             this.outputTextPanel.TabIndex = 0;
+            this.outputTextPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.outputTextPanel_Paint);
             // 
             // outputText
             // 
             this.outputText.AutoSize = true;
             this.outputText.Font = new System.Drawing.Font("HP Simplified Hans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.outputText.Location = new System.Drawing.Point(19, 18);
+            this.outputText.Location = new System.Drawing.Point(16, 25);
             this.outputText.Name = "outputText";
             this.outputText.Size = new System.Drawing.Size(70, 23);
             this.outputText.TabIndex = 6;
             this.outputText.Text = "Output";
-            this.outputText.Click += new System.EventHandler(this.label1_Click_1);
+            //this.outputText.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // graphPanel
             // 
+            this.graphPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.graphPanel.BackColor = System.Drawing.Color.White;
             this.graphPanel.Location = new System.Drawing.Point(506, 77);
             this.graphPanel.Name = "graphPanel";
-            this.graphPanel.Size = new System.Drawing.Size(793, 504);
+            this.graphPanel.Size = new System.Drawing.Size(1015, 649);
             this.graphPanel.TabIndex = 9;
+            this.graphPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphPanel_Paint_1);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1297, 581);
+            this.ClientSize = new System.Drawing.Size(1521, 726);
+            this.Controls.Add(this.outputTextPanel);
             this.Controls.Add(this.graphPanel);
             this.Controls.Add(this.searchButtonPanel);
-            this.Controls.Add(this.outputTextPanel);
             this.MinimumSize = new System.Drawing.Size(515, 460);
             this.Name = "MainForm";
             this.Text = "Folder Crawling";

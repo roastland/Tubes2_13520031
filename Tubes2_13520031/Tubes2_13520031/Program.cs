@@ -17,7 +17,7 @@ namespace Tubes2_13520031
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm form = new MainForm();
             
-            
+            /*
             //create a viewer object 
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             //create a graph object 
@@ -42,7 +42,7 @@ namespace Tubes2_13520031
             viewer.ToolBarIsVisible = false;
             form.addGraphToPanel(viewer);
             form.ResumeLayout();
-            
+            */
 
             Application.EnableVisualStyles();
             Application.Run(form);

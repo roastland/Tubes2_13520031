@@ -18,19 +18,33 @@ namespace Tubes2_13520031
         {
             InitializeComponent();
             this.bfs = new BFSSearch(null, null, false);
+            this.bfs.OnFileFound += FileFound;
             searchWorker.DoWork += SearchFile; // melakukan searching file
             searchWorker.RunWorkerCompleted += SearchCompleted;
 
         }
 
+        private void FileFound(Microsoft.Msagl.Drawing.Graph graph)
+        {
+            graphPanel.BeginInvoke((Action)delegate ()
+            {
+                Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+                viewer.Graph = graph;
+                viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+                viewer.ToolBarIsVisible = false;
+                graphPanel.Controls.Add(viewer);
+            });
+        }
+
         private void SearchCompleted(object sender, RunWorkerCompletedEventArgs args)
         {
-            MessageBox.Show("Search Complete!");
+            MessageBox.Show("Search Completed!");
         }
 
         private void SearchFile(object sender, DoWorkEventArgs args)
         {
             // TODO: Tambah metode search (proses search) sesuai metode pilihan user
+            bfs.Search();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -90,41 +104,13 @@ namespace Tubes2_13520031
                     bfs.setStartingDir(folderBrowserDialog1.SelectedPath);
                     bfs.setGoalState(inputFileName.Text);
                     bfs.setOccurence(findAllOccurence.Checked);
+                    searchWorker.RunWorkerAsync();
                 }
                 else // DFS
                 {
 
                 }
             }
-        }
-
-        public void addGraphToPanel(Microsoft.Msagl.GraphViewerGdi.GViewer viewer)
-        {
-            graphPanel.Controls.Add(viewer);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void graphPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void graphPanel_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void outputTextPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void fileNamePanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Tubes2_13520031
 {
-    delegate void FileFound(string path);
+    delegate void FileFound(Microsoft.Msagl.Drawing.Graph graph);
     class BFSSearch
     {
         private Queue<string> antrian;
@@ -15,6 +15,10 @@ namespace Tubes2_13520031
         private string startingDir;
         private string goalState;
         private bool isAll;
+        private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
+        private Microsoft.Msagl.Drawing.Graph graph;
+
+        public event FileFound OnFileFound;
 
         public BFSSearch(string startingDir, string goalState, bool isAll)
         {
@@ -23,6 +27,8 @@ namespace Tubes2_13520031
             this.dikunjungi = new List<string>();
             this.goalState = goalState;
             this.isAll = isAll;
+            this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+            this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
         }
 
         public void setStartingDir(string startingDir)
@@ -40,43 +46,61 @@ namespace Tubes2_13520031
             this.isAll = isAll;
         }
 
+        public Microsoft.Msagl.GraphViewerGdi.GViewer getViewer()
+        {
+            return this.viewer;
+        }
+
         public void Search()
         {
             Console.WriteLine(this.startingDir);
             this.dikunjungi.Add(this.startingDir);
             this.antrian.Enqueue(this.startingDir);
+
+            graph.AddNode(this.startingDir); // set starting dir sebagai akar
+
             bool found = false;
             while (this.antrian.Count > 0)
             {
                 string holder = this.antrian.Dequeue();
-
                 //Mencari file dan atau folder yang bertetangga dengan folder  holder
                 string[] allDir = Directory.GetDirectories(holder);
                 string[] allFiles = Directory.GetFiles(holder);
 
+                /*
                 List<string> searchTree = new List<string>();
 
                 searchTree.AddRange(allFiles);
                 searchTree.AddRange(allDir);
+                */
 
+                // Prioritaskan file terlebih dahulu baru folder
                 foreach (string file in allFiles)
                 {
-
+                    string[] temp_file = file.Split('\\');
+                    if (graph.FindNode(temp_file[temp_file.Length - 1]) == null) // jika belum ditemukan node, maka tambahkan node
+                    {
+                        if (holder == this.startingDir) // agar nama node menjadi starting dir
+                        {
+                            graph.AddEdge(holder, temp_file[temp_file.Length - 1]);
+                        }
+                        else
+                        {
+                            graph.AddEdge(temp_file[temp_file.Length - 2], temp_file[temp_file.Length - 1]);
+                        }
+                    }
                     if (Path.GetFileName(file) == goalState)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(file);
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        graph.FindNode(temp_file.Last()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                         found = true;
                         if (!isAll)
                         {
                             break;
                         }
-
                     }
                     else
                     {
-                        Console.WriteLine(file);
+                        //Console.WriteLine(file);
                     }
 
 
@@ -85,9 +109,21 @@ namespace Tubes2_13520031
                 {
                     foreach (string dir in allDir)
                     {
+                        string[] temp_dir = dir.Split('\\');
+                        if (graph.FindNode(temp_dir[temp_dir.Length - 1]) == null) // jika belum ditemukan node, maka tambahkan node
+                        {
+                            if (holder == this.startingDir) // agar nama node menjadi starting dir
+                            {
+                                graph.AddEdge(holder, temp_dir[temp_dir.Length - 1]);
+                            }
+                            else
+                            {
+                                graph.AddEdge(temp_dir[temp_dir.Length - 2], temp_dir[temp_dir.Length - 1]);
+                            }
+                        }    
                         if (!this.dikunjungi.Contains(dir))
                         {
-                            Console.WriteLine(dir);
+                            //Console.WriteLine(dir);
                             antrian.Enqueue(dir);
                             dikunjungi.Add(dir);
                         }
@@ -99,12 +135,8 @@ namespace Tubes2_13520031
                 {
                     break;
                 }
-
-
-
             }
-
-
+            OnFileFound(this.graph);
         }
     }
 

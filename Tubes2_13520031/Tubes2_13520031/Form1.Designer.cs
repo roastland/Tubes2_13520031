@@ -1,7 +1,7 @@
 ﻿
 namespace Tubes2_13520031
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,26 +30,32 @@ namespace Tubes2_13520031
         private void InitializeComponent()
         {
             this.inputFileNameText = new System.Windows.Forms.Label();
-            this.InputFileName = new System.Windows.Forms.TextBox();
+            this.inputFileName = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.searchMethodText = new System.Windows.Forms.Label();
+            this.searchButtonPanel = new System.Windows.Forms.Panel();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchMethodPanel = new System.Windows.Forms.Panel();
             this.searchMethod = new System.Windows.Forms.ComboBox();
             this.fileNamePanel = new System.Windows.Forms.Panel();
-            this.FindAllOccurence = new System.Windows.Forms.CheckBox();
+            this.findAllOccurence = new System.Windows.Forms.CheckBox();
             this.directoryPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.chooseStartingDirectoryText = new System.Windows.Forms.Label();
             this.chooseFolderButton = new System.Windows.Forms.Button();
             this.directoryChoosen = new System.Windows.Forms.Label();
             this.titlePanel = new System.Windows.Forms.Panel();
             this.title = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.searchWorker = new System.ComponentModel.BackgroundWorker();
+            this.outputTextPanel = new System.Windows.Forms.Panel();
+            this.outputText = new System.Windows.Forms.Label();
+            this.graphPanel = new System.Windows.Forms.Panel();
+            this.searchButtonPanel.SuspendLayout();
             this.searchMethodPanel.SuspendLayout();
             this.fileNamePanel.SuspendLayout();
             this.directoryPanel.SuspendLayout();
             this.titlePanel.SuspendLayout();
+            this.outputTextPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputFileNameText
@@ -61,40 +67,37 @@ namespace Tubes2_13520031
             this.inputFileNameText.Size = new System.Drawing.Size(138, 23);
             this.inputFileNameText.TabIndex = 3;
             this.inputFileNameText.Text = "Input file name";
-            this.inputFileNameText.Click += new System.EventHandler(this.label2_Click);
             // 
-            // InputFileName
+            // inputFileName
             // 
-            this.InputFileName.Location = new System.Drawing.Point(16, 43);
-            this.InputFileName.Name = "InputFileName";
-            this.InputFileName.Size = new System.Drawing.Size(209, 22);
-            this.InputFileName.TabIndex = 4;
+            this.inputFileName.Location = new System.Drawing.Point(16, 43);
+            this.inputFileName.Name = "inputFileName";
+            this.inputFileName.Size = new System.Drawing.Size(209, 22);
+            this.inputFileName.TabIndex = 4;
             // 
-            // label4
+            // searchMethodText
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("HP Simplified Hans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 20);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(137, 23);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Search Method";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.searchMethodText.AutoSize = true;
+            this.searchMethodText.Font = new System.Drawing.Font("HP Simplified Hans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchMethodText.Location = new System.Drawing.Point(12, 20);
+            this.searchMethodText.Name = "searchMethodText";
+            this.searchMethodText.Size = new System.Drawing.Size(137, 23);
+            this.searchMethodText.TabIndex = 6;
+            this.searchMethodText.Text = "Search Method";
             // 
-            // panel1
+            // searchButtonPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.searchButton);
-            this.panel1.Controls.Add(this.searchMethodPanel);
-            this.panel1.Controls.Add(this.fileNamePanel);
-            this.panel1.Controls.Add(this.directoryPanel);
-            this.panel1.Controls.Add(this.titlePanel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(507, 413);
-            this.panel1.TabIndex = 8;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.searchButtonPanel.BackColor = System.Drawing.Color.White;
+            this.searchButtonPanel.Controls.Add(this.searchButton);
+            this.searchButtonPanel.Controls.Add(this.searchMethodPanel);
+            this.searchButtonPanel.Controls.Add(this.fileNamePanel);
+            this.searchButtonPanel.Controls.Add(this.directoryPanel);
+            this.searchButtonPanel.Controls.Add(this.titlePanel);
+            this.searchButtonPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.searchButtonPanel.Location = new System.Drawing.Point(0, 0);
+            this.searchButtonPanel.Name = "searchButtonPanel";
+            this.searchButtonPanel.Size = new System.Drawing.Size(507, 581);
+            this.searchButtonPanel.TabIndex = 8;
             // 
             // searchButton
             // 
@@ -106,12 +109,12 @@ namespace Tubes2_13520031
             this.searchButton.TabIndex = 11;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = false;
-            this.searchButton.Click += new System.EventHandler(this.button1_Click_1);
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchMethodPanel
             // 
             this.searchMethodPanel.BackColor = System.Drawing.Color.White;
-            this.searchMethodPanel.Controls.Add(this.label4);
+            this.searchMethodPanel.Controls.Add(this.searchMethodText);
             this.searchMethodPanel.Controls.Add(this.searchMethod);
             this.searchMethodPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.searchMethodPanel.Location = new System.Drawing.Point(0, 220);
@@ -130,13 +133,14 @@ namespace Tubes2_13520031
             this.searchMethod.Name = "searchMethod";
             this.searchMethod.Size = new System.Drawing.Size(121, 24);
             this.searchMethod.TabIndex = 7;
+            this.searchMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // fileNamePanel
             // 
             this.fileNamePanel.BackColor = System.Drawing.Color.White;
-            this.fileNamePanel.Controls.Add(this.FindAllOccurence);
+            this.fileNamePanel.Controls.Add(this.findAllOccurence);
             this.fileNamePanel.Controls.Add(this.inputFileNameText);
-            this.fileNamePanel.Controls.Add(this.InputFileName);
+            this.fileNamePanel.Controls.Add(this.inputFileName);
             this.fileNamePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.fileNamePanel.Location = new System.Drawing.Point(0, 100);
             this.fileNamePanel.Name = "fileNamePanel";
@@ -144,21 +148,22 @@ namespace Tubes2_13520031
             this.fileNamePanel.Size = new System.Drawing.Size(507, 120);
             this.fileNamePanel.TabIndex = 10;
             // 
-            // FindAllOccurence
+            // findAllOccurence
             // 
-            this.FindAllOccurence.AutoSize = true;
-            this.FindAllOccurence.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.FindAllOccurence.Location = new System.Drawing.Point(16, 74);
-            this.FindAllOccurence.Name = "FindAllOccurence";
-            this.FindAllOccurence.Size = new System.Drawing.Size(154, 22);
-            this.FindAllOccurence.TabIndex = 9;
-            this.FindAllOccurence.Text = "Find all occurence";
-            this.FindAllOccurence.UseVisualStyleBackColor = true;
-            this.FindAllOccurence.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.findAllOccurence.AutoSize = true;
+            this.findAllOccurence.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.findAllOccurence.Location = new System.Drawing.Point(16, 74);
+            this.findAllOccurence.Name = "findAllOccurence";
+            this.findAllOccurence.Size = new System.Drawing.Size(147, 21);
+            this.findAllOccurence.TabIndex = 9;
+            this.findAllOccurence.Text = "Find all occurence";
+            this.findAllOccurence.UseVisualStyleBackColor = true;
+            this.findAllOccurence.CheckedChanged += new System.EventHandler(this.findAllOccurence_CheckedChanged);
             // 
             // directoryPanel
             // 
             this.directoryPanel.BackColor = System.Drawing.Color.White;
+            this.directoryPanel.Controls.Add(this.panel1);
             this.directoryPanel.Controls.Add(this.chooseStartingDirectoryText);
             this.directoryPanel.Controls.Add(this.chooseFolderButton);
             this.directoryPanel.Controls.Add(this.directoryChoosen);
@@ -169,6 +174,13 @@ namespace Tubes2_13520031
             this.directoryPanel.Size = new System.Drawing.Size(507, 100);
             this.directoryPanel.TabIndex = 9;
             // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(506, 77);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(793, 504);
+            this.panel1.TabIndex = 9;
+            // 
             // chooseStartingDirectoryText
             // 
             this.chooseStartingDirectoryText.AutoSize = true;
@@ -178,7 +190,6 @@ namespace Tubes2_13520031
             this.chooseStartingDirectoryText.Size = new System.Drawing.Size(224, 23);
             this.chooseStartingDirectoryText.TabIndex = 1;
             this.chooseStartingDirectoryText.Text = "Choose starting directory";
-            this.chooseStartingDirectoryText.Click += new System.EventHandler(this.label1_Click);
             // 
             // chooseFolderButton
             // 
@@ -193,17 +204,16 @@ namespace Tubes2_13520031
             this.chooseFolderButton.TabIndex = 2;
             this.chooseFolderButton.Text = "Choose folder...";
             this.chooseFolderButton.UseVisualStyleBackColor = false;
-            this.chooseFolderButton.Click += new System.EventHandler(this.button1_Click);
+            this.chooseFolderButton.Click += new System.EventHandler(this.chooseFolder_Click);
             // 
             // directoryChoosen
             // 
             this.directoryChoosen.AutoSize = true;
             this.directoryChoosen.Location = new System.Drawing.Point(146, 61);
             this.directoryChoosen.Name = "directoryChoosen";
-            this.directoryChoosen.Size = new System.Drawing.Size(104, 17);
+            this.directoryChoosen.Size = new System.Drawing.Size(99, 16);
             this.directoryChoosen.TabIndex = 5;
             this.directoryChoosen.Text = "No File Chosen";
-            this.directoryChoosen.Click += new System.EventHandler(this.label3_Click);
             // 
             // titlePanel
             // 
@@ -220,22 +230,55 @@ namespace Tubes2_13520031
             this.title.Font = new System.Drawing.Font("Bahnschrift Condensed", 25.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title.Location = new System.Drawing.Point(12, 25);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(233, 52);
+            this.title.Size = new System.Drawing.Size(232, 52);
             this.title.TabIndex = 9;
             this.title.Text = "Folder Crawler";
-            this.title.Click += new System.EventHandler(this.label5_Click);
             // 
-            // Form1
+            // searchWorker
+            // 
+            this.searchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchFile);
+            // 
+            // outputTextPanel
+            // 
+            this.outputTextPanel.BackColor = System.Drawing.Color.White;
+            this.outputTextPanel.Controls.Add(this.outputText);
+            this.outputTextPanel.Location = new System.Drawing.Point(506, 0);
+            this.outputTextPanel.Name = "outputTextPanel";
+            this.outputTextPanel.Size = new System.Drawing.Size(793, 77);
+            this.outputTextPanel.TabIndex = 0;
+            // 
+            // outputText
+            // 
+            this.outputText.AutoSize = true;
+            this.outputText.Font = new System.Drawing.Font("HP Simplified Hans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.outputText.Location = new System.Drawing.Point(19, 18);
+            this.outputText.Name = "outputText";
+            this.outputText.Size = new System.Drawing.Size(70, 23);
+            this.outputText.TabIndex = 6;
+            this.outputText.Text = "Output";
+            this.outputText.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // graphPanel
+            // 
+            this.graphPanel.BackColor = System.Drawing.Color.White;
+            this.graphPanel.Location = new System.Drawing.Point(506, 77);
+            this.graphPanel.Name = "graphPanel";
+            this.graphPanel.Size = new System.Drawing.Size(793, 504);
+            this.graphPanel.TabIndex = 9;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 413);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(1297, 581);
+            this.Controls.Add(this.graphPanel);
+            this.Controls.Add(this.searchButtonPanel);
+            this.Controls.Add(this.outputTextPanel);
             this.MinimumSize = new System.Drawing.Size(515, 460);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Folder Crawling";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel1.ResumeLayout(false);
+            this.searchButtonPanel.ResumeLayout(false);
             this.searchMethodPanel.ResumeLayout(false);
             this.searchMethodPanel.PerformLayout();
             this.fileNamePanel.ResumeLayout(false);
@@ -244,16 +287,18 @@ namespace Tubes2_13520031
             this.directoryPanel.PerformLayout();
             this.titlePanel.ResumeLayout(false);
             this.titlePanel.PerformLayout();
+            this.outputTextPanel.ResumeLayout(false);
+            this.outputTextPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Label inputFileNameText;
-        private System.Windows.Forms.TextBox InputFileName;
+        private System.Windows.Forms.TextBox inputFileName;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label searchMethodText;
+        private System.Windows.Forms.Panel searchButtonPanel;
         private System.Windows.Forms.ComboBox searchMethod;
         private System.Windows.Forms.Panel titlePanel;
         private System.Windows.Forms.Label title;
@@ -263,8 +308,13 @@ namespace Tubes2_13520031
         private System.Windows.Forms.Label chooseStartingDirectoryText;
         private System.Windows.Forms.Button chooseFolderButton;
         private System.Windows.Forms.Label directoryChoosen;
-        private System.Windows.Forms.CheckBox FindAllOccurence;
+        private System.Windows.Forms.CheckBox findAllOccurence;
         private System.Windows.Forms.Button searchButton;
+        private System.ComponentModel.BackgroundWorker searchWorker;
+        private System.Windows.Forms.Panel outputTextPanel;
+        private System.Windows.Forms.Label outputText;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel graphPanel;
     }
 }
 

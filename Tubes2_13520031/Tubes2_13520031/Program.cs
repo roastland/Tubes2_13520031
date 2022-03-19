@@ -15,9 +15,9 @@ namespace Tubes2_13520031
         static void Main()
         {
             Application.SetCompatibleTextRenderingDefault(false);
-            Form1 form = new Form1();
+            MainForm form = new MainForm();
             
-            /*
+            
             //create a viewer object 
             Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             //create a graph object 
@@ -26,6 +26,7 @@ namespace Tubes2_13520031
             //create the graph content 
             graph.AddEdge("A", "B");
             graph.AddEdge("B", "C");
+            graph.AddEdge("B", "D");
             graph.AddEdge("A", "C").Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
             graph.FindNode("A").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Magenta;
             graph.FindNode("B").Attr.FillColor = Microsoft.Msagl.Drawing.Color.MistyRose;
@@ -39,9 +40,9 @@ namespace Tubes2_13520031
             form.SuspendLayout();
             viewer.Dock = System.Windows.Forms.DockStyle.Right;
             viewer.ToolBarIsVisible = false;
-            form.Controls.Add(viewer);
+            form.addGraphToPanel(viewer);
             form.ResumeLayout();
-            */
+            
 
             Application.EnableVisualStyles();
             Application.Run(form);

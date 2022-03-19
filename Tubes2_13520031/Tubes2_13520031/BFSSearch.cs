@@ -7,6 +7,7 @@ using System.IO;
 
 namespace Tubes2_13520031
 {
+    delegate void FileFound(string path);
     class BFSSearch
     {
         private Queue<string> antrian;
@@ -15,13 +16,27 @@ namespace Tubes2_13520031
         private string goalState;
         private bool isAll;
 
-
         public BFSSearch(string startingDir, string goalState, bool isAll)
         {
             this.startingDir = startingDir;
             this.antrian = new Queue<string>();
             this.dikunjungi = new List<string>();
             this.goalState = goalState;
+            this.isAll = isAll;
+        }
+
+        public void setStartingDir(string startingDir)
+        {
+            this.startingDir = startingDir;
+        }
+
+        public void setGoalState(string goalState)
+        {
+            this.goalState = goalState;
+        }
+
+        public void setOccurence(bool isAll)
+        {
             this.isAll = isAll;
         }
 
@@ -92,6 +107,8 @@ namespace Tubes2_13520031
 
         }
     }
+
+    /*
     class Driver
     {
         static void Main(string[] args)
@@ -106,6 +123,8 @@ namespace Tubes2_13520031
         }
 
     }
+
+    */
 
 
 }

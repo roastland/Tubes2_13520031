@@ -2,7 +2,6 @@ C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Tubes2_13520031.exe
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Tubes2_13520031.exe
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Tubes2_13520031.pdb
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.AssemblyReference.cache
-C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.Form1.resources
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.Properties.Resources.resources
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.GenerateResource.cache
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.CoreCompileInputs.cache
@@ -13,3 +12,5 @@ C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\AutomaticGraphLayou
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Microsoft.Msagl.GraphViewerGdi.dll
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\bin\Debug\Microsoft.Msagl.WpfGraphControl.dll
 C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.CopyComplete
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.csproj.SuggestedBindingRedirects.cache
+C:\Tubes2_13520031\Tubes2_13520031\Tubes2_13520031\obj\Debug\Tubes2_13520031.MainForm.resources

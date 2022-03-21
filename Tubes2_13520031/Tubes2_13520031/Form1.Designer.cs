@@ -52,8 +52,10 @@ namespace Tubes2_13520031
             this.outputText = new System.Windows.Forms.Label();
             this.graphPanel = new System.Windows.Forms.Panel();
             this.timeAndDirectoryPanel = new System.Windows.Forms.Panel();
-            this.pathDirectory = new System.Windows.Forms.Label();
             this.timeSpentText = new System.Windows.Forms.Label();
+            this.pathDirectory = new System.Windows.Forms.Label();
+            this.pathDirectoryPanel = new System.Windows.Forms.Panel();
+            this.pathDirectoryLink = new System.Windows.Forms.LinkLabel();
             this.searchButtonPanel.SuspendLayout();
             this.searchMethodPanel.SuspendLayout();
             this.fileNamePanel.SuspendLayout();
@@ -61,6 +63,7 @@ namespace Tubes2_13520031
             this.titlePanel.SuspendLayout();
             this.outputTextPanel.SuspendLayout();
             this.timeAndDirectoryPanel.SuspendLayout();
+            this.pathDirectoryPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputFileNameText
@@ -277,46 +280,66 @@ namespace Tubes2_13520031
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.graphPanel.BackColor = System.Drawing.Color.MintCream;
-            this.graphPanel.Location = new System.Drawing.Point(506, 155);
+            this.graphPanel.Location = new System.Drawing.Point(506, 220);
             this.graphPanel.Name = "graphPanel";
-            this.graphPanel.Size = new System.Drawing.Size(1015, 571);
+            this.graphPanel.Size = new System.Drawing.Size(1015, 506);
             this.graphPanel.TabIndex = 9;
             // 
             // timeAndDirectoryPanel
             // 
             this.timeAndDirectoryPanel.BackColor = System.Drawing.Color.MintCream;
-            this.timeAndDirectoryPanel.Controls.Add(this.pathDirectory);
             this.timeAndDirectoryPanel.Controls.Add(this.timeSpentText);
             this.timeAndDirectoryPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.timeAndDirectoryPanel.Location = new System.Drawing.Point(507, 54);
             this.timeAndDirectoryPanel.Name = "timeAndDirectoryPanel";
-            this.timeAndDirectoryPanel.Size = new System.Drawing.Size(1014, 100);
+            this.timeAndDirectoryPanel.Size = new System.Drawing.Size(1014, 47);
             this.timeAndDirectoryPanel.TabIndex = 10;
-            //this.timeAndDirectoryPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.timeAndDirectoryPanel_Paint);
-            // 
-            // pathDirectory
-            // 
-            this.pathDirectory.AutoSize = true;
-            this.pathDirectory.Location = new System.Drawing.Point(20, 46);
-            this.pathDirectory.Name = "pathDirectory";
-            this.pathDirectory.Size = new System.Drawing.Size(0, 16);
-            this.pathDirectory.TabIndex = 1;
-            this.pathDirectory.Text = "Path directory : ";
             // 
             // timeSpentText
             // 
             this.timeSpentText.AutoSize = true;
             this.timeSpentText.Location = new System.Drawing.Point(20, 14);
             this.timeSpentText.Name = "timeSpentText";
-            this.timeSpentText.Size = new System.Drawing.Size(0, 16);
+            this.timeSpentText.Size = new System.Drawing.Size(83, 16);
             this.timeSpentText.TabIndex = 0;
             this.timeSpentText.Text = "Time spent : ";
+            // 
+            // pathDirectory
+            // 
+            this.pathDirectory.AutoSize = true;
+            this.pathDirectory.Location = new System.Drawing.Point(20, 19);
+            this.pathDirectory.Name = "pathDirectory";
+            this.pathDirectory.Size = new System.Drawing.Size(98, 16);
+            this.pathDirectory.TabIndex = 1;
+            this.pathDirectory.Text = "Path directory : ";
+            // 
+            // pathDirectoryPanel
+            // 
+            this.pathDirectoryPanel.BackColor = System.Drawing.Color.MintCream;
+            this.pathDirectoryPanel.Controls.Add(this.pathDirectoryLink);
+            this.pathDirectoryPanel.Controls.Add(this.pathDirectory);
+            this.pathDirectoryPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pathDirectoryPanel.Location = new System.Drawing.Point(507, 101);
+            this.pathDirectoryPanel.Name = "pathDirectoryPanel";
+            this.pathDirectoryPanel.Size = new System.Drawing.Size(1014, 119);
+            this.pathDirectoryPanel.TabIndex = 11;
+            // 
+            // pathDirectoryLink
+            // 
+            this.pathDirectoryLink.AutoSize = true;
+            this.pathDirectoryLink.Location = new System.Drawing.Point(124, 19);
+            this.pathDirectoryLink.Name = "pathDirectoryLink";
+            this.pathDirectoryLink.Size = new System.Drawing.Size(0, 16);
+            this.pathDirectoryLink.TabIndex = 2;
+            this.pathDirectoryLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.pathDirectoryLink_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.MintCream;
             this.ClientSize = new System.Drawing.Size(1521, 726);
+            this.Controls.Add(this.pathDirectoryPanel);
             this.Controls.Add(this.timeAndDirectoryPanel);
             this.Controls.Add(this.outputTextPanel);
             this.Controls.Add(this.graphPanel);
@@ -338,6 +361,8 @@ namespace Tubes2_13520031
             this.outputTextPanel.PerformLayout();
             this.timeAndDirectoryPanel.ResumeLayout(false);
             this.timeAndDirectoryPanel.PerformLayout();
+            this.pathDirectoryPanel.ResumeLayout(false);
+            this.pathDirectoryPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -368,6 +393,8 @@ namespace Tubes2_13520031
         private System.Windows.Forms.Panel timeAndDirectoryPanel;
         private System.Windows.Forms.Label timeSpentText;
         private System.Windows.Forms.Label pathDirectory;
+        private System.Windows.Forms.Panel pathDirectoryPanel;
+        private System.Windows.Forms.LinkLabel pathDirectoryLink;
     }
 }
 

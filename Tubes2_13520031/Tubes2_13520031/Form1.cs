@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace Tubes2_13520031
 {
@@ -23,19 +24,26 @@ namespace Tubes2_13520031
             this.bfs = new BFSSearch(null, null, false);
             this.bfs.OnFileFound += FileFound;
             searchWorker.DoWork += SearchFile; // melakukan searching file
-            searchWorker.RunWorkerCompleted += SearchCompleted;
+            searchWorker.RunWorkerCompleted += SearchCompleted; // search selesai
         }
 
-        private void FileFound(Microsoft.Msagl.Drawing.Graph graph, long time_spent)
+        private void FileFound(Microsoft.Msagl.Drawing.Graph graph, long time_spent, List<String> goalDirectory)
         {
             graphPanel.BeginInvoke((Action)delegate ()
             {
                 Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
                 viewer.Graph = graph;
-                viewer.Dock = System.Windows.Forms.DockStyle.Fill;
+                viewer.Dock = DockStyle.Fill;
                 viewer.ToolBarIsVisible = false;
                 graphPanel.Controls.Add(viewer);
-                //timeSpentText.Text = "Time Spent : " + time_spent.ToString();
+                if (goalDirectory.Count > 0) // file ditemukan
+                {
+                    pathDirectoryLink.Text = "";
+                    foreach (string goal in goalDirectory)
+                    {
+                        pathDirectoryLink.Text += goal;
+                    }
+                }
             });
         }
 
@@ -110,13 +118,22 @@ namespace Tubes2_13520031
                     bfs.setStartingDir(folderBrowserDialog1.SelectedPath);
                     bfs.setGoalState(inputFileName.Text);
                     bfs.setOccurence(findAllOccurence.Checked);
-                    stopwatch.Start();
-                    searchWorker.RunWorkerAsync();
+                    stopwatch.Start(); // mulai hitung waktu eksekusi
+                    searchWorker.RunWorkerAsync(); // lakukan search 
                 }
                 else // DFS
                 {
 
                 }
+            }
+        }
+
+        private void pathDirectoryLink_Click(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (pathDirectoryLink.Text != "") // jika file ditemukan
+            {
+                FileInfo fileDirectory = new FileInfo(pathDirectoryLink.Text); // dapatkan direktori folder tempat file berada
+                Process.Start(fileDirectory.DirectoryName);
             }
         }
     }

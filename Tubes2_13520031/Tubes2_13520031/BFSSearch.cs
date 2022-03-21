@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Tubes2_13520031
 {
-    delegate void FileFound(Microsoft.Msagl.Drawing.Graph graph, long time_spent);
+    delegate void FileFound(Microsoft.Msagl.Drawing.Graph graph, long time_spent, List<String> goalDirectory);
     class BFSSearch
     {
         private Queue<string> antrian;
@@ -19,7 +19,7 @@ namespace Tubes2_13520031
         private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
         private Microsoft.Msagl.Drawing.Graph graph;
         private long time_spent;
-
+        private List<String> goalDirectory;
         public event FileFound OnFileFound;
 
         public BFSSearch(string startingDir, string goalState, bool isAll)
@@ -32,6 +32,7 @@ namespace Tubes2_13520031
             this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
             this.time_spent = 0;
+            this.goalDirectory = new List<string>();
         }
 
         public void setStartingDir(string startingDir)
@@ -73,13 +74,6 @@ namespace Tubes2_13520031
                 string[] allDir = Directory.GetDirectories(holder);
                 string[] allFiles = Directory.GetFiles(holder);
 
-                /*
-                List<string> searchTree = new List<string>();
-
-                searchTree.AddRange(allFiles);
-                searchTree.AddRange(allDir);
-                */
-
                 // Prioritaskan file terlebih dahulu baru folder
                 foreach (string file in allFiles)
                 {
@@ -97,7 +91,8 @@ namespace Tubes2_13520031
                     }
                     if (Path.GetFileName(file) == goalState)
                     {
-                        graph.FindNode(temp_file.Last()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                        graph.FindNode(temp_file.Last()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Blue;
+                        this.goalDirectory.Add(file); // tambah direktori file ke dalam list goalDirectory
                         found = true;
                         if (!isAll)
                         {
@@ -106,6 +101,7 @@ namespace Tubes2_13520031
                     }
                     else
                     {
+                        graph.FindNode(temp_file.Last()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                         //Console.WriteLine(file);
                     }
 
@@ -143,29 +139,32 @@ namespace Tubes2_13520031
                 }
             }
             stopwatch.Stop();
+            /*if (found) {
+                foreach (Microsoft.Msagl.Drawing.Edge e in graph.Edges)
+                {
+                    foreach (string file in this.goalDirectory)
+                    {
+                        string directoryWithoutStart = file.Substring(goalState.Length);
+                        string[] edges = directoryWithoutStart.Split('\\');
+                        for (int i = 0; i < edges.Length; i ++)
+                        {
+                            if (e.)
+                        }
+                        e.Attr.Color = 
+                    }
+                    if (e.SourceNode)
+                }
+            } */
             this.time_spent = stopwatch.ElapsedMilliseconds;
-            OnFileFound(this.graph, this.time_spent);
+            OnFileFound(this.graph, this.time_spent, this.goalDirectory);
         }
-    }
 
-    /*
-    class Driver
-    {
-        static void Main(string[] args)
+        /* public List<Microsoft.Msagl.Drawing.Edge> getPath(Microsoft.Msagl.Drawing.Node node)  
         {
-            string path = @"C:\Users\irfan\OneDrive\Documents\Nando\Informatika\Semester 4\OOP";
-            string goal = @"PrioQueue.hpp";
-            bool searchAll = true;
-            BFSSearch searcher = new BFSSearch(path, goal, searchAll);
-
-            searcher.Search();
-
-        }
-
+            var path = new List<Microsoft.Msagl.Drawing.Edge>();
+            while ((NodeData)(node.UserData))
+            return 
+        } */
     }
-
-    */
-
-
 }
 

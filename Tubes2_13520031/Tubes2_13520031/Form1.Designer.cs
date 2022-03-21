@@ -40,6 +40,7 @@ namespace Tubes2_13520031
             this.fileNamePanel = new System.Windows.Forms.Panel();
             this.findAllOccurence = new System.Windows.Forms.CheckBox();
             this.directoryPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chooseStartingDirectoryText = new System.Windows.Forms.Label();
             this.chooseFolderButton = new System.Windows.Forms.Button();
@@ -50,12 +51,16 @@ namespace Tubes2_13520031
             this.outputTextPanel = new System.Windows.Forms.Panel();
             this.outputText = new System.Windows.Forms.Label();
             this.graphPanel = new System.Windows.Forms.Panel();
+            this.timeAndDirectoryPanel = new System.Windows.Forms.Panel();
+            this.pathDirectory = new System.Windows.Forms.Label();
+            this.timeSpentText = new System.Windows.Forms.Label();
             this.searchButtonPanel.SuspendLayout();
             this.searchMethodPanel.SuspendLayout();
             this.fileNamePanel.SuspendLayout();
             this.directoryPanel.SuspendLayout();
             this.titlePanel.SuspendLayout();
             this.outputTextPanel.SuspendLayout();
+            this.timeAndDirectoryPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // inputFileNameText
@@ -87,7 +92,7 @@ namespace Tubes2_13520031
             // 
             // searchButtonPanel
             // 
-            this.searchButtonPanel.BackColor = System.Drawing.Color.White;
+            this.searchButtonPanel.BackColor = System.Drawing.Color.Honeydew;
             this.searchButtonPanel.Controls.Add(this.searchButton);
             this.searchButtonPanel.Controls.Add(this.searchMethodPanel);
             this.searchButtonPanel.Controls.Add(this.fileNamePanel);
@@ -113,7 +118,7 @@ namespace Tubes2_13520031
             // 
             // searchMethodPanel
             // 
-            this.searchMethodPanel.BackColor = System.Drawing.Color.White;
+            this.searchMethodPanel.BackColor = System.Drawing.Color.Honeydew;
             this.searchMethodPanel.Controls.Add(this.searchMethodText);
             this.searchMethodPanel.Controls.Add(this.searchMethod);
             this.searchMethodPanel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -137,7 +142,7 @@ namespace Tubes2_13520031
             // 
             // fileNamePanel
             // 
-            this.fileNamePanel.BackColor = System.Drawing.Color.White;
+            this.fileNamePanel.BackColor = System.Drawing.Color.Honeydew;
             this.fileNamePanel.Controls.Add(this.findAllOccurence);
             this.fileNamePanel.Controls.Add(this.inputFileNameText);
             this.fileNamePanel.Controls.Add(this.inputFileName);
@@ -147,7 +152,6 @@ namespace Tubes2_13520031
             this.fileNamePanel.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.fileNamePanel.Size = new System.Drawing.Size(507, 120);
             this.fileNamePanel.TabIndex = 10;
-            this.fileNamePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.fileNamePanel_Paint);
             // 
             // findAllOccurence
             // 
@@ -163,7 +167,8 @@ namespace Tubes2_13520031
             // 
             // directoryPanel
             // 
-            this.directoryPanel.BackColor = System.Drawing.Color.White;
+            this.directoryPanel.BackColor = System.Drawing.Color.Honeydew;
+            this.directoryPanel.Controls.Add(this.panel2);
             this.directoryPanel.Controls.Add(this.panel1);
             this.directoryPanel.Controls.Add(this.chooseStartingDirectoryText);
             this.directoryPanel.Controls.Add(this.chooseFolderButton);
@@ -174,6 +179,13 @@ namespace Tubes2_13520031
             this.directoryPanel.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.directoryPanel.Size = new System.Drawing.Size(507, 100);
             this.directoryPanel.TabIndex = 9;
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(506, 49);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 100);
+            this.panel2.TabIndex = 10;
             // 
             // panel1
             // 
@@ -212,9 +224,9 @@ namespace Tubes2_13520031
             this.directoryChoosen.AutoSize = true;
             this.directoryChoosen.Location = new System.Drawing.Point(146, 61);
             this.directoryChoosen.Name = "directoryChoosen";
-            this.directoryChoosen.Size = new System.Drawing.Size(99, 16);
+            this.directoryChoosen.Size = new System.Drawing.Size(116, 16);
             this.directoryChoosen.TabIndex = 5;
-            this.directoryChoosen.Text = "No File Chosen";
+            this.directoryChoosen.Text = "No Folder Chosen";
             // 
             // titlePanel
             // 
@@ -241,43 +253,71 @@ namespace Tubes2_13520031
             // 
             // outputTextPanel
             // 
-            this.outputTextPanel.BackColor = System.Drawing.Color.White;
+            this.outputTextPanel.BackColor = System.Drawing.Color.MintCream;
             this.outputTextPanel.Controls.Add(this.outputText);
             this.outputTextPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.outputTextPanel.Location = new System.Drawing.Point(507, 0);
             this.outputTextPanel.Name = "outputTextPanel";
-            this.outputTextPanel.Size = new System.Drawing.Size(1014, 77);
+            this.outputTextPanel.Size = new System.Drawing.Size(1014, 54);
             this.outputTextPanel.TabIndex = 0;
-            this.outputTextPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.outputTextPanel_Paint);
             // 
             // outputText
             // 
             this.outputText.AutoSize = true;
             this.outputText.Font = new System.Drawing.Font("HP Simplified Hans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.outputText.Location = new System.Drawing.Point(16, 25);
+            this.outputText.Location = new System.Drawing.Point(19, 18);
             this.outputText.Name = "outputText";
             this.outputText.Size = new System.Drawing.Size(70, 23);
             this.outputText.TabIndex = 6;
             this.outputText.Text = "Output";
-            //this.outputText.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // graphPanel
             // 
             this.graphPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.graphPanel.BackColor = System.Drawing.Color.White;
-            this.graphPanel.Location = new System.Drawing.Point(506, 77);
+            this.graphPanel.BackColor = System.Drawing.Color.MintCream;
+            this.graphPanel.Location = new System.Drawing.Point(506, 155);
             this.graphPanel.Name = "graphPanel";
-            this.graphPanel.Size = new System.Drawing.Size(1015, 649);
+            this.graphPanel.Size = new System.Drawing.Size(1015, 571);
             this.graphPanel.TabIndex = 9;
-            this.graphPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.graphPanel_Paint_1);
+            // 
+            // timeAndDirectoryPanel
+            // 
+            this.timeAndDirectoryPanel.BackColor = System.Drawing.Color.MintCream;
+            this.timeAndDirectoryPanel.Controls.Add(this.pathDirectory);
+            this.timeAndDirectoryPanel.Controls.Add(this.timeSpentText);
+            this.timeAndDirectoryPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.timeAndDirectoryPanel.Location = new System.Drawing.Point(507, 54);
+            this.timeAndDirectoryPanel.Name = "timeAndDirectoryPanel";
+            this.timeAndDirectoryPanel.Size = new System.Drawing.Size(1014, 100);
+            this.timeAndDirectoryPanel.TabIndex = 10;
+            //this.timeAndDirectoryPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.timeAndDirectoryPanel_Paint);
+            // 
+            // pathDirectory
+            // 
+            this.pathDirectory.AutoSize = true;
+            this.pathDirectory.Location = new System.Drawing.Point(20, 46);
+            this.pathDirectory.Name = "pathDirectory";
+            this.pathDirectory.Size = new System.Drawing.Size(0, 16);
+            this.pathDirectory.TabIndex = 1;
+            this.pathDirectory.Text = "Path directory : ";
+            // 
+            // timeSpentText
+            // 
+            this.timeSpentText.AutoSize = true;
+            this.timeSpentText.Location = new System.Drawing.Point(20, 14);
+            this.timeSpentText.Name = "timeSpentText";
+            this.timeSpentText.Size = new System.Drawing.Size(0, 16);
+            this.timeSpentText.TabIndex = 0;
+            this.timeSpentText.Text = "Time spent : ";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1521, 726);
+            this.Controls.Add(this.timeAndDirectoryPanel);
             this.Controls.Add(this.outputTextPanel);
             this.Controls.Add(this.graphPanel);
             this.Controls.Add(this.searchButtonPanel);
@@ -296,6 +336,8 @@ namespace Tubes2_13520031
             this.titlePanel.PerformLayout();
             this.outputTextPanel.ResumeLayout(false);
             this.outputTextPanel.PerformLayout();
+            this.timeAndDirectoryPanel.ResumeLayout(false);
+            this.timeAndDirectoryPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -322,6 +364,10 @@ namespace Tubes2_13520031
         private System.Windows.Forms.Label outputText;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel graphPanel;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel timeAndDirectoryPanel;
+        private System.Windows.Forms.Label timeSpentText;
+        private System.Windows.Forms.Label pathDirectory;
     }
 }
 

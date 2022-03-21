@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 
 namespace Tubes2_13520031
 {
-    delegate void FileFound(Microsoft.Msagl.Drawing.Graph graph);
+    delegate void FileFound(Microsoft.Msagl.Drawing.Graph graph, long time_spent);
     class BFSSearch
     {
         private Queue<string> antrian;
@@ -17,6 +18,7 @@ namespace Tubes2_13520031
         private bool isAll;
         private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
         private Microsoft.Msagl.Drawing.Graph graph;
+        private long time_spent;
 
         public event FileFound OnFileFound;
 
@@ -29,6 +31,7 @@ namespace Tubes2_13520031
             this.isAll = isAll;
             this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            this.time_spent = 0;
         }
 
         public void setStartingDir(string startingDir)
@@ -53,7 +56,10 @@ namespace Tubes2_13520031
 
         public void Search()
         {
-            Console.WriteLine(this.startingDir);
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            //Console.WriteLine(this.startingDir);
             this.dikunjungi.Add(this.startingDir);
             this.antrian.Enqueue(this.startingDir);
 
@@ -136,7 +142,9 @@ namespace Tubes2_13520031
                     break;
                 }
             }
-            OnFileFound(this.graph);
+            stopwatch.Stop();
+            this.time_spent = stopwatch.ElapsedMilliseconds;
+            OnFileFound(this.graph, this.time_spent);
         }
     }
 

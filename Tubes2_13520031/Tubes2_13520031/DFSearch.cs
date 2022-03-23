@@ -5,234 +5,95 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Tubes2_13520031
+class DFS
 {
-    class DFSearch
+    private string startingDir;
+    private string goalState;
+    private bool isAll;
+    private bool found; // boolean untuk NOT isAll Occurence
+    Dictionary<string, bool> visited = new Dictionary<string, bool>(); // value: path, key: boolean (udah divisit atau belum)
+
+
+    public DFS(string startingDir, string goalState, bool isAll) // konstruktor
     {
-        private Queue<string> antrian;
-        private List<string> dikunjungi;
-        private string startingDir;
-        private string goalState;
-        private bool isAll;
-
-
-        public DFSearch(string startingDir, string goalState, bool isAll)
-        {
-            this.startingDir = startingDir;
-            this.antrian = new Queue<string>();
-            this.dikunjungi = new List<string>();
-            this.goalState = goalState;
-            this.isAll = isAll;
-        }
-
-        public void Search()
-        {
-            Console.WriteLine(this.startingDir);
-            this.dikunjungi.Add(this.startingDir);
-            this.antrian.Enqueue(this.startingDir);
-            bool found = false;
-            while (this.antrian.Count > 0)
-            {
-                string holder = this.antrian.Dequeue();
-
-                //Mencari file dan atau folder yang bertetangga dengan folder  holder
-                string[] allDir = Directory.GetDirectories(holder);
-                string[] allFiles = Directory.GetFiles(holder);
-
-                List<string> searchTree = new List<string>();
-
-                searchTree.AddRange(allFiles);
-                searchTree.AddRange(allDir);
-
-                foreach (string dir in allDir)
-                {
-                    if (!this.dikunjungi.Contains(dir))
-                    {
-                        Console.WriteLine(dir);
-                        antrian.Enqueue(dir);
-                        dikunjungi.Add(dir);
-
-                       
-                    }
-                    
-                }
-                foreach (string file in allFiles)
-                {
-
-                    if (Path.GetFileName(file) == goalState)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(file);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        found = true;
-                        if (!isAll)
-                        {
-                            break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine(file);
-                    }
-
-
-                }
-                /*
-                foreach (string file in allFiles)
-                {
-
-                    if (Path.GetFileName(file) == goalState)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(file);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        found = true;
-                        if (!isAll)
-                        {
-                            break;
-                        }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine(file);
-                    }
-
-
-                }
-                */
-
-                if (!found || isAll)
-                {
-                    /*
-                    foreach (string file in allFiles)
-                    {
-
-                        if (Path.GetFileName(file) == goalState)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine(file);
-                            Console.ForegroundColor = ConsoleColor.Gray;
-                            found = true;
-                            if (!isAll)
-                            {
-                                break;
-                            }
-
-                        }
-                        else
-                        {
-                            Console.WriteLine(file);
-                        }
-
-
-                    }
-                    */
-                    foreach (string dir in allDir)
-                    {
-                        if (!this.dikunjungi.Contains(dir))
-                        {
-                            Console.WriteLine(dir);
-                            antrian.Enqueue(dir);
-                            dikunjungi.Add(dir);
-                        }
-                    }
-                    
-                }
-            
-
-                if (!isAll && found)
-                {
-                    break;
-                }
-
-
-
-            }
-
-
-        }
-    }
-    class Driver
-    {
-        static void Main(string[] args)
-        {
-            string path = @"D:\SEMESTER 4\IF2211 Strategi Algoritma\Tugas\Home";
-            string goal = @"not.jpeg";
-            bool searchAll = false;
-            tesDFS searcher = new tesDFS(path, goal, searchAll);
-
-            searcher.SearchTes(path);
-
-        }
-
+        this.startingDir = startingDir;
+        this.goalState = goalState;
+        this.isAll = isAll;
+        this.found = false;
+        this.visited = new Dictionary<string, bool>();
     }
 
-    class tesDFS
+    public void initializeVisited(string starting) // inisialisasi value pada dictionary dengan false
     {
-        private List<string> dikunjungi;
-        private string startingDir;
-        private string goalState;
-        private bool isAll;
-
-        public tesDFS(string startingDir, string goalState, bool isAll)
+        foreach (string file in Directory.GetFiles(starting))
         {
-            this.startingDir = startingDir;
-            this.dikunjungi = new List<string>();
-            this.goalState = goalState;
-            this.isAll = isAll;
+            visited.Add(file, false);
         }
-
-        public bool SearchTes(string root, bool isFound)
+        foreach (string dir in Directory.GetDirectories(starting))
         {
-            Console.WriteLine(root);
-            this.dikunjungi.Add(root);
-            bool found = false;
+            visited.Add(dir, false);
+            initializeVisited(dir);
+        }
+    }
 
-            //Mencari file dan atau folder yang bertetangga dengan folder  holder
-            string[] allDir = Directory.GetDirectories(root);
-            string[] allFiles = Directory.GetFiles(root);
+    public void search(string start)
+    {
+        string[] allDir = Directory.GetDirectories(start);
+        string[] allFiles = Directory.GetFiles(start);
 
-            foreach (string file in allFiles)
-            {
-
-                if (Path.GetFileName(file) == goalState)
+        // Basis: file ditemukan (untuk not isAll Occurence)
+        // atau pencarian berakhir untuk semua file dan directory yg ada pada parent directory
+        foreach (string file in allFiles)
+        {   
+            // jika nama file ditemukan
+            if (Path.GetFileName(file) == this.goalState)
+            {                
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(file);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                visited[file] = true;
+                // jika bukan All Occurence, maka pencarian berakhir
+                if (!isAll)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(file);
-                    Console.ForegroundColor = ConsoleColor.Gray;
                     found = true;
-                    if (!isAll)
-                    {
-                        return true;
-                    }
-
+                    Environment.Exit(0);
                 }
-                else
-                {
-                    Console.WriteLine(file);
-                }
-
-
             }
-
-            if (!found || isAll)
+            else
             {
-                foreach (string dir in allDir)
-                {
-                    if (!this.dikunjungi.Contains(dir))
-                    {
-                        return this.SearchTes(dir, isFound);
-                        
-                    }
-                    
-                }
-
+                Console.WriteLine(file);
+                visited[file] = true;
             }
-
-
         }
+        if (!found) // belum ketemu atau bukan All Occurence
+        {
+            visited[start] = false;
+            foreach (string dir in allDir)
+            {
+                if (visited[dir] == false)
+                {
+                    Console.WriteLine(dir);
+                    search(dir); // rekurens
+                }
+            }
+            visited[start] = false;
+        }
+    }
 
+    public void DFSearch(string start)
+    {
+        initializeVisited(startingDir);
+        search(start);
+    }
+}
+
+class Driver
+{
+    static void Main(string[] args)
+    {
+        string path = @"D:\SEMESTER 4\IF2211 Strategi Algoritma\Tugas\Home";
+        string goal = @"not.jpeg";
+        DFS searcher = new DFS(path, goal, false);
+        searcher.DFSearch(path);
     }
 }

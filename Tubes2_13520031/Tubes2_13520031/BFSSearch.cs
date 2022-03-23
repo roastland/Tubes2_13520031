@@ -158,3 +158,186 @@ namespace Tubes2_13520031
     }
 }
 
+/*
+class BFSSearch
+    {
+        private Queue<string> antrian;
+        private List<string> dikunjungi;
+        private string startingDir;
+        private string goalState;
+        private bool isAll;
+        private Microsoft.Msagl.Drawing.Graph graph;
+        private List<string> foundPath;
+        private List<string> notFoundPath;
+
+
+        public BFSSearch(string startingDir, string goalState, bool isAll)
+        {
+            this.startingDir = startingDir;
+            this.antrian = new Queue<string>();
+            this.dikunjungi = new List<string>();
+            this.goalState = goalState;
+            this.isAll = isAll;
+            this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            this.foundPath = new List<string>();
+            this.notFoundPath = new List<string>();
+        }
+
+       /*
+        public Microsoft.Msagl.Drawing.Edge findEdge(string prevNode, string nextNode)
+        {
+            Microsoft.Msagl.Drawing.Edge e;
+
+            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
+            {
+                if(edge.Source.Equals(prevNode) && edge.Target.Equals(nextNode))
+                {
+                    e = edge;
+                    break;
+                }
+            }
+            return e;
+        }
+       */
+        public Microsoft.Msagl.Drawing.Graph Search()
+        {
+            Console.WriteLine(this.startingDir);
+            this.dikunjungi.Add(this.startingDir);
+            this.antrian.Enqueue(this.startingDir);
+            bool found = false;
+            while (this.antrian.Count > 0)
+            {
+                //string holder = new DirectoryInfo(this.antrian.Dequeue()).Name;
+                string holder = this.antrian.Dequeue();
+
+                //Mencari file dan atau folder yang bertetangga dengan folder  holder
+                string[] allDir = Directory.GetDirectories(holder);
+                string[] allFiles = Directory.GetFiles(holder);
+
+                
+
+                foreach (string file in allFiles)
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(holder);
+
+                    if (Path.GetFileName(file) == goalState)
+                    {
+                        this.foundPath.Add(file);
+                        if (dikunjungi.Contains(Path.GetFileName(file)))
+                        {
+                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name+"/"+Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            this.graph.FindNode(dirInfo.Name + "/" + Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                        }
+                        else
+                        {
+                            this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            this.graph.FindNode(Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                            this.dikunjungi.Add(Path.GetFileName(file));
+                        }
+
+                        
+                        string finalDir = Directory.GetParent(file).FullName;
+                        while (finalDir != this.startingDir)
+                        {
+                            DirectoryInfo nextNode = new DirectoryInfo(finalDir);
+                            DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
+                            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
+                            {
+                                Console.WriteLine(edge.Attr.Color);
+                                
+                                if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name))
+                                {
+                                    this.graph.RemoveEdge(edge);
+
+                                    break;
+                                }
+                            }
+                            this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            finalDir = Directory.GetParent(finalDir).FullName;
+                        }
+                        
+                       
+                        
+
+                       
+                        found = true;
+                        if (!isAll)
+                        {
+                            break;
+                        }
+
+                    }
+                    else
+                    {
+                        this.notFoundPath.Add(file);
+                        if (dikunjungi.Contains(Path.GetFileName(file)))
+                        {
+                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                        }
+                        else
+                        {
+                            this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            this.dikunjungi.Add(Path.GetFileName(file));
+                        }
+                        
+                        
+                        string finalDir = Directory.GetParent(file).FullName;
+                        while (finalDir != this.startingDir)
+                        {
+                            DirectoryInfo nextNode = new DirectoryInfo(finalDir);
+                            DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
+                            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
+                            {
+                                Console.WriteLine(edge.Attr.Color.GetType());
+                                Console.WriteLine(Microsoft.Msagl.Drawing.Color.Green);
+                                if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                                {
+                                    this.graph.RemoveEdge(edge);
+                                    this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+
+                                    break;
+                                }
+                            }
+
+                            
+                            
+                            finalDir = Directory.GetParent(finalDir).FullName;
+                            
+                        }
+                        
+
+
+                    }
+
+
+                }
+                if (!found || isAll)
+                {
+                    foreach (string dir in allDir)
+                    {
+                        DirectoryInfo dirInfo = new DirectoryInfo(dir);
+                        DirectoryInfo holderInfo = new DirectoryInfo(holder);
+                        if (!this.dikunjungi.Contains(dir))
+                        {
+                            this.graph.AddEdge(holderInfo.Name, dirInfo.Name);
+                            antrian.Enqueue(dir);
+                            dikunjungi.Add(dir);
+                        }
+                    }
+
+                }
+
+                if (!isAll && found)
+                {
+                    break;
+                }
+
+
+
+            }
+
+            return this.graph;
+
+
+        }
+    }*/

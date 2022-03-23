@@ -7,6 +7,7 @@ using System.Diagnostics;
 namespace Tubes2_13520031
 {
     //delegate void FileFound();
+    /*
     class BFSSearch
     {
         private Queue<string> antrian;
@@ -31,26 +32,6 @@ namespace Tubes2_13520031
             this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
             this.time_spent = 0;
             this.goalDirectory = new List<string>();
-        }
-
-        public void setStartingDir(string startingDir)
-        {
-            this.startingDir = startingDir;
-        }
-
-        public void setGoalState(string goalState)
-        {
-            this.goalState = goalState;
-        }
-
-        public void setOccurence(bool isAll)
-        {
-            this.isAll = isAll;
-        }
-
-        public Microsoft.Msagl.GraphViewerGdi.GViewer getViewer()
-        {
-            return this.viewer;
         }
 
         public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) Search()
@@ -150,16 +131,16 @@ namespace Tubes2_13520031
                     }
                     if (e.SourceNode)
                 }
-            } */
+            } 
             this.time_spent = stopwatch.ElapsedMilliseconds;
             //OnFileFound();
             return (this.graph, this.goalDirectory);
         }
-    }
-}
+    } */
 
-/*
-class BFSSearch
+
+
+    class BFSSearch
     {
         private Queue<string> antrian;
         private List<string> dikunjungi;
@@ -167,8 +148,7 @@ class BFSSearch
         private string goalState;
         private bool isAll;
         private Microsoft.Msagl.Drawing.Graph graph;
-        private List<string> foundPath;
-        private List<string> notFoundPath;
+        private List<string> goalDirectory;
 
 
         public BFSSearch(string startingDir, string goalState, bool isAll)
@@ -179,11 +159,25 @@ class BFSSearch
             this.goalState = goalState;
             this.isAll = isAll;
             this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
-            this.foundPath = new List<string>();
-            this.notFoundPath = new List<string>();
+            this.goalDirectory = new List<String>();
         }
 
-       /*
+        public void setStartingDir(string startingDir)
+        {
+            this.startingDir = startingDir;
+        }
+
+        public void setGoalState(string goalState)
+        {
+            this.goalState = goalState;
+        }
+
+        public void setOccurence(bool isAll)
+        {
+            this.isAll = isAll;
+        }
+
+        /*
         public Microsoft.Msagl.Drawing.Edge findEdge(string prevNode, string nextNode)
         {
             Microsoft.Msagl.Drawing.Edge e;
@@ -197,9 +191,9 @@ class BFSSearch
                 }
             }
             return e;
-        }
-       */
-        public Microsoft.Msagl.Drawing.Graph Search()
+        } */
+
+        public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) Search()
         {
             Console.WriteLine(this.startingDir);
             this.dikunjungi.Add(this.startingDir);
@@ -214,18 +208,17 @@ class BFSSearch
                 string[] allDir = Directory.GetDirectories(holder);
                 string[] allFiles = Directory.GetFiles(holder);
 
-                
-
                 foreach (string file in allFiles)
                 {
                     DirectoryInfo dirInfo = new DirectoryInfo(holder);
 
                     if (Path.GetFileName(file) == goalState)
                     {
-                        this.foundPath.Add(file);
+                        //this.foundPath.Add(file);
+                        goalDirectory.Add(file);
                         if (dikunjungi.Contains(Path.GetFileName(file)))
                         {
-                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name+"/"+Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
                             this.graph.FindNode(dirInfo.Name + "/" + Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                         }
                         else
@@ -235,7 +228,7 @@ class BFSSearch
                             this.dikunjungi.Add(Path.GetFileName(file));
                         }
 
-                        
+
                         string finalDir = Directory.GetParent(file).FullName;
                         while (finalDir != this.startingDir)
                         {
@@ -244,7 +237,7 @@ class BFSSearch
                             foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
                             {
                                 Console.WriteLine(edge.Attr.Color);
-                                
+
                                 if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name))
                                 {
                                     this.graph.RemoveEdge(edge);
@@ -255,11 +248,7 @@ class BFSSearch
                             this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
                             finalDir = Directory.GetParent(finalDir).FullName;
                         }
-                        
-                       
-                        
 
-                       
                         found = true;
                         if (!isAll)
                         {
@@ -269,7 +258,7 @@ class BFSSearch
                     }
                     else
                     {
-                        this.notFoundPath.Add(file);
+                        //this.notFoundPath.Add(file);
                         if (dikunjungi.Contains(Path.GetFileName(file)))
                         {
                             this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
@@ -279,8 +268,8 @@ class BFSSearch
                             this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
                             this.dikunjungi.Add(Path.GetFileName(file));
                         }
-                        
-                        
+
+
                         string finalDir = Directory.GetParent(file).FullName;
                         while (finalDir != this.startingDir)
                         {
@@ -299,12 +288,12 @@ class BFSSearch
                                 }
                             }
 
-                            
-                            
+
+
                             finalDir = Directory.GetParent(finalDir).FullName;
-                            
+
                         }
-                        
+
 
 
                     }
@@ -336,8 +325,7 @@ class BFSSearch
 
             }
 
-            return this.graph;
-
-
+            return (this.graph, this.goalDirectory);
         }
-    }*/
+    }
+}

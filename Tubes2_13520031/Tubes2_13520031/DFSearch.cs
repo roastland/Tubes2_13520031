@@ -45,24 +45,27 @@ class DFS
         // atau pencarian berakhir untuk semua file dan directory yg ada pada parent directory
         foreach (string file in allFiles)
         {   
-            // jika nama file ditemukan
-            if (Path.GetFileName(file) == this.goalState)
-            {                
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(file);
-                Console.ForegroundColor = ConsoleColor.Gray;
-                visited[file] = true;
-                // jika bukan All Occurence, maka pencarian berakhir
-                if (!isAll)
-                {
-                    found = true;
-                    Environment.Exit(0);
-                }
-            }
-            else
+            if (!found)
             {
-                Console.WriteLine(file);
-                visited[file] = true;
+                // jika nama file ditemukan
+                if (Path.GetFileName(file) == this.goalState)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(file);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    visited[file] = true;
+                    // jika bukan All Occurence, maka pencarian berakhir
+                    if (!isAll)
+                    {
+                        found = true;
+                        //Environment.Exit(0);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(file);
+                    visited[file] = true;
+                }
             }
         }
         if (!found) // belum ketemu atau bukan All Occurence
@@ -71,9 +74,12 @@ class DFS
             foreach (string dir in allDir)
             {
                 if (visited[dir] == false)
-                {
+                { 
                     //Console.WriteLine(dir);
-                    search(dir); // rekurens
+                    if (!found)
+                    {
+                        search(dir); // rekurens
+                    }
                 }
             }
             visited[start] = false;

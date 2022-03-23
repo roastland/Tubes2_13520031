@@ -332,7 +332,6 @@ namespace Tubes2_13520031
             this.pathDirectoryPanel.BackColor = System.Drawing.Color.MintCream;
             this.pathDirectoryPanel.Controls.Add(this.tableLayoutPath);
             this.pathDirectoryPanel.Controls.Add(this.pathDirectory);
-            this.pathDirectoryPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.pathDirectoryPanel.Location = new System.Drawing.Point(507, 101);
             this.pathDirectoryPanel.Name = "pathDirectoryPanel";
             this.pathDirectoryPanel.Size = new System.Drawing.Size(1014, 119);

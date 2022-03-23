@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 
 namespace Tubes2_13520031
 {
-    delegate void FileFound(Microsoft.Msagl.Drawing.Graph graph, long time_spent, List<String> goalDirectory);
+    //delegate void FileFound();
     class BFSSearch
     {
         private Queue<string> antrian;
@@ -20,7 +18,7 @@ namespace Tubes2_13520031
         private Microsoft.Msagl.Drawing.Graph graph;
         private long time_spent;
         private List<String> goalDirectory;
-        public event FileFound OnFileFound;
+        //public event FileFound OnFileFound;
 
         public BFSSearch(string startingDir, string goalState, bool isAll)
         {
@@ -55,7 +53,7 @@ namespace Tubes2_13520031
             return this.viewer;
         }
 
-        public void Search()
+        public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) Search()
         {
             Stopwatch stopwatch = new Stopwatch();
 
@@ -93,6 +91,7 @@ namespace Tubes2_13520031
                     {
                         graph.FindNode(temp_file.Last()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Blue;
                         this.goalDirectory.Add(file); // tambah direktori file ke dalam list goalDirectory
+                        //this.goalDirectory.Add(file);
                         found = true;
                         if (!isAll)
                         {
@@ -104,8 +103,6 @@ namespace Tubes2_13520031
                         graph.FindNode(temp_file.Last()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                         //Console.WriteLine(file);
                     }
-
-
                 }
                 if (!found || isAll)
                 {
@@ -122,7 +119,7 @@ namespace Tubes2_13520031
                             {
                                 graph.AddEdge(temp_dir[temp_dir.Length - 2], temp_dir[temp_dir.Length - 1]);
                             }
-                        }    
+                        }
                         if (!this.dikunjungi.Contains(dir))
                         {
                             //Console.WriteLine(dir);
@@ -130,7 +127,6 @@ namespace Tubes2_13520031
                             dikunjungi.Add(dir);
                         }
                     }
-
                 }
 
                 if (!isAll && found)
@@ -139,7 +135,7 @@ namespace Tubes2_13520031
                 }
             }
             stopwatch.Stop();
-            /*if (found) {
+            /* if (found) {
                 foreach (Microsoft.Msagl.Drawing.Edge e in graph.Edges)
                 {
                     foreach (string file in this.goalDirectory)
@@ -156,15 +152,9 @@ namespace Tubes2_13520031
                 }
             } */
             this.time_spent = stopwatch.ElapsedMilliseconds;
-            OnFileFound(this.graph, this.time_spent, this.goalDirectory);
+            //OnFileFound();
+            return (this.graph, this.goalDirectory);
         }
-
-        /* public List<Microsoft.Msagl.Drawing.Edge> getPath(Microsoft.Msagl.Drawing.Node node)  
-        {
-            var path = new List<Microsoft.Msagl.Drawing.Edge>();
-            while ((NodeData)(node.UserData))
-            return 
-        } */
     }
 }
 

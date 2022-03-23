@@ -38,6 +38,7 @@ namespace Tubes2_13520031
             this.searchMethodPanel = new System.Windows.Forms.Panel();
             this.searchMethod = new System.Windows.Forms.ComboBox();
             this.fileNamePanel = new System.Windows.Forms.Panel();
+            this.fileExtInstructionText = new System.Windows.Forms.Label();
             this.findAllOccurence = new System.Windows.Forms.CheckBox();
             this.directoryPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -55,7 +56,7 @@ namespace Tubes2_13520031
             this.timeSpentText = new System.Windows.Forms.Label();
             this.pathDirectory = new System.Windows.Forms.Label();
             this.pathDirectoryPanel = new System.Windows.Forms.Panel();
-            this.pathDirectoryLink = new System.Windows.Forms.LinkLabel();
+            this.tableLayoutPath = new System.Windows.Forms.TableLayoutPanel();
             this.searchButtonPanel.SuspendLayout();
             this.searchMethodPanel.SuspendLayout();
             this.fileNamePanel.SuspendLayout();
@@ -146,6 +147,7 @@ namespace Tubes2_13520031
             // fileNamePanel
             // 
             this.fileNamePanel.BackColor = System.Drawing.Color.Honeydew;
+            this.fileNamePanel.Controls.Add(this.fileExtInstructionText);
             this.fileNamePanel.Controls.Add(this.findAllOccurence);
             this.fileNamePanel.Controls.Add(this.inputFileNameText);
             this.fileNamePanel.Controls.Add(this.inputFileName);
@@ -155,6 +157,15 @@ namespace Tubes2_13520031
             this.fileNamePanel.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.fileNamePanel.Size = new System.Drawing.Size(507, 120);
             this.fileNamePanel.TabIndex = 10;
+            // 
+            // fileExtInstructionText
+            // 
+            this.fileExtInstructionText.AutoSize = true;
+            this.fileExtInstructionText.Location = new System.Drawing.Point(231, 46);
+            this.fileExtInstructionText.Name = "fileExtInstructionText";
+            this.fileExtInstructionText.Size = new System.Drawing.Size(176, 16);
+            this.fileExtInstructionText.TabIndex = 10;
+            this.fileExtInstructionText.Text = "Please include file extension";
             // 
             // findAllOccurence
             // 
@@ -166,7 +177,6 @@ namespace Tubes2_13520031
             this.findAllOccurence.TabIndex = 9;
             this.findAllOccurence.Text = "Find all occurence";
             this.findAllOccurence.UseVisualStyleBackColor = true;
-            this.findAllOccurence.CheckedChanged += new System.EventHandler(this.findAllOccurence_CheckedChanged);
             // 
             // directoryPanel
             // 
@@ -298,25 +308,29 @@ namespace Tubes2_13520031
             // timeSpentText
             // 
             this.timeSpentText.AutoSize = true;
+            this.timeSpentText.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeSpentText.Location = new System.Drawing.Point(20, 14);
             this.timeSpentText.Name = "timeSpentText";
-            this.timeSpentText.Size = new System.Drawing.Size(83, 16);
+            this.timeSpentText.Size = new System.Drawing.Size(107, 20);
             this.timeSpentText.TabIndex = 0;
             this.timeSpentText.Text = "Time spent : ";
             // 
             // pathDirectory
             // 
             this.pathDirectory.AutoSize = true;
+            this.pathDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pathDirectory.Location = new System.Drawing.Point(20, 19);
             this.pathDirectory.Name = "pathDirectory";
-            this.pathDirectory.Size = new System.Drawing.Size(98, 16);
+            this.pathDirectory.Size = new System.Drawing.Size(128, 20);
             this.pathDirectory.TabIndex = 1;
             this.pathDirectory.Text = "Path directory : ";
             // 
             // pathDirectoryPanel
             // 
+            this.pathDirectoryPanel.AutoScroll = true;
+            this.pathDirectoryPanel.AutoScrollMargin = new System.Drawing.Size(0, 1000);
             this.pathDirectoryPanel.BackColor = System.Drawing.Color.MintCream;
-            this.pathDirectoryPanel.Controls.Add(this.pathDirectoryLink);
+            this.pathDirectoryPanel.Controls.Add(this.tableLayoutPath);
             this.pathDirectoryPanel.Controls.Add(this.pathDirectory);
             this.pathDirectoryPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.pathDirectoryPanel.Location = new System.Drawing.Point(507, 101);
@@ -324,14 +338,19 @@ namespace Tubes2_13520031
             this.pathDirectoryPanel.Size = new System.Drawing.Size(1014, 119);
             this.pathDirectoryPanel.TabIndex = 11;
             // 
-            // pathDirectoryLink
+            // tableLayoutPath
             // 
-            this.pathDirectoryLink.AutoSize = true;
-            this.pathDirectoryLink.Location = new System.Drawing.Point(124, 19);
-            this.pathDirectoryLink.Name = "pathDirectoryLink";
-            this.pathDirectoryLink.Size = new System.Drawing.Size(0, 16);
-            this.pathDirectoryLink.TabIndex = 2;
-            this.pathDirectoryLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.pathDirectoryLink_Click);
+            this.tableLayoutPath.ColumnCount = 1;
+            this.tableLayoutPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPath.Location = new System.Drawing.Point(23, 42);
+            this.tableLayoutPath.MinimumSize = new System.Drawing.Size(949, 58);
+            this.tableLayoutPath.Name = "tableLayoutPath";
+            this.tableLayoutPath.RowCount = 1;
+            this.tableLayoutPath.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPath.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPath.Size = new System.Drawing.Size(949, 58);
+            this.tableLayoutPath.TabIndex = 3;
             // 
             // MainForm
             // 
@@ -394,7 +413,8 @@ namespace Tubes2_13520031
         private System.Windows.Forms.Label timeSpentText;
         private System.Windows.Forms.Label pathDirectory;
         private System.Windows.Forms.Panel pathDirectoryPanel;
-        private System.Windows.Forms.LinkLabel pathDirectoryLink;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPath;
+        private System.Windows.Forms.Label fileExtInstructionText;
     }
 }
 

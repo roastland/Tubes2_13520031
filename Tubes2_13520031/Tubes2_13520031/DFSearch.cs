@@ -40,7 +40,7 @@ class DFS
     {
         string[] allDir = Directory.GetDirectories(start);
         string[] allFiles = Directory.GetFiles(start);
-
+        Console.WriteLine(start);
         // Basis: file ditemukan (untuk not isAll Occurence)
         // atau pencarian berakhir untuk semua file dan directory yg ada pada parent directory
         foreach (string file in allFiles)
@@ -72,7 +72,7 @@ class DFS
             {
                 if (visited[dir] == false)
                 {
-                    Console.WriteLine(dir);
+                    //Console.WriteLine(dir);
                     search(dir); // rekurens
                 }
             }

@@ -195,7 +195,8 @@ namespace Tubes2_13520031
 
         public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) Search()
         {
-            Console.WriteLine(this.startingDir);
+            //Console.WriteLine(this.startingDir);
+            //Console.WriteLine(this.isAll);
             this.dikunjungi.Add(this.startingDir);
             this.antrian.Enqueue(this.startingDir);
             bool found = false;
@@ -215,7 +216,10 @@ namespace Tubes2_13520031
                     if (Path.GetFileName(file) == goalState)
                     {
                         //this.foundPath.Add(file);
-                        goalDirectory.Add(file);
+                        if (!goalDirectory.Contains(file))
+                        {
+                            goalDirectory.Add(file);
+                        }
                         if (dikunjungi.Contains(Path.GetFileName(file)))
                         {
                             this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
@@ -227,8 +231,6 @@ namespace Tubes2_13520031
                             this.graph.FindNode(Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                             this.dikunjungi.Add(Path.GetFileName(file));
                         }
-
-
                         string finalDir = Directory.GetParent(file).FullName;
                         while (finalDir != this.startingDir)
                         {
@@ -236,7 +238,7 @@ namespace Tubes2_13520031
                             DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
                             foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
                             {
-                                Console.WriteLine(edge.Attr.Color);
+                                //Console.WriteLine(edge.Attr.Color);
 
                                 if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name))
                                 {
@@ -248,13 +250,11 @@ namespace Tubes2_13520031
                             this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
                             finalDir = Directory.GetParent(finalDir).FullName;
                         }
-
                         found = true;
                         if (!isAll)
                         {
                             break;
                         }
-
                     }
                     else
                     {
@@ -268,8 +268,6 @@ namespace Tubes2_13520031
                             this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
                             this.dikunjungi.Add(Path.GetFileName(file));
                         }
-
-
                         string finalDir = Directory.GetParent(file).FullName;
                         while (finalDir != this.startingDir)
                         {
@@ -277,8 +275,8 @@ namespace Tubes2_13520031
                             DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
                             foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
                             {
-                                Console.WriteLine(edge.Attr.Color.GetType());
-                                Console.WriteLine(Microsoft.Msagl.Drawing.Color.Green);
+                               // Console.WriteLine(edge.Attr.Color.GetType());
+                                //Console.WriteLine(Microsoft.Msagl.Drawing.Color.Green);
                                 if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
                                 {
                                     this.graph.RemoveEdge(edge);
@@ -287,18 +285,9 @@ namespace Tubes2_13520031
                                     break;
                                 }
                             }
-
-
-
                             finalDir = Directory.GetParent(finalDir).FullName;
-
                         }
-
-
-
                     }
-
-
                 }
                 if (!found || isAll)
                 {
@@ -315,16 +304,16 @@ namespace Tubes2_13520031
                     }
 
                 }
-
                 if (!isAll && found)
                 {
                     break;
                 }
-
-
-
             }
-
+            Console.WriteLine("Find all: " + isAll);
+            foreach(string s in goalDirectory)
+            {
+                Console.WriteLine(s);
+            }
             return (this.graph, this.goalDirectory);
         }
     }

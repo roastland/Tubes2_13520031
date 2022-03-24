@@ -103,3 +103,355 @@ class Driver
         searcher.DFSearch(path);
     }
 }
+
+/*
+public void search(string start)
+        {
+            string[] allDir = Directory.GetDirectories(start);
+            string[] allFiles = Directory.GetFiles(start);
+            Console.WriteLine(start);
+            // Basis: file ditemukan (untuk not isAll Occurence)
+            // atau pencarian berakhir untuk semua file dan directory yg ada pada parent directory
+            if (allDir.Length == 0 && allFiles.Length == 0)
+            {
+                DirectoryInfo startDirectoryInfo = new DirectoryInfo(this.startingDir);
+                //DirectoryInfo dirInfo = new DirectoryInfo(start);
+                string finalDir = start;
+                
+                while (finalDir != this.startingDir)
+                {
+                    DirectoryInfo nextNode = new DirectoryInfo(finalDir);
+                    DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
+                    DirectoryInfo GrandpaDir;
+                    if (prevNode.Name != startDirectoryInfo.Name)
+                    {
+                        GrandpaDir = new DirectoryInfo(Directory.GetParent(Directory.GetParent(finalDir).FullName).FullName);
+
+                    }
+                    else
+                    {
+                        GrandpaDir = prevNode;
+                    }
+                    foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
+                    {
+                        Console.WriteLine(nextNode.Name);
+
+                        if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        {
+                            this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.FindNode(nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.RemoveEdge(edge);
+
+                            break;
+                        }
+                        else if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(prevNode.Name + "/" + nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        {
+                            this.graph.AddEdge(prevNode.Name, prevNode.Name + "/" + nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.FindNode(prevNode.Name + "/" + nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.RemoveEdge(edge);
+                            break;
+                        }
+                        else if (edge.SourceNode.LabelText.Equals(GrandpaDir.Name + "/" + prevNode.Name) && edge.TargetNode.LabelText.Equals(prevNode.Name + "/" + nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        {
+                            this.graph.AddEdge(GrandpaDir.Name + "/" + prevNode.Name, prevNode.Name + "/" + nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.FindNode(prevNode.Name + "/" + nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.RemoveEdge(edge);
+                            break;
+                        }
+                        else if (edge.SourceNode.LabelText.Equals(GrandpaDir.Name + "/" + prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        {
+                            this.graph.AddEdge(GrandpaDir.Name + "/" + prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.FindNode(nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                            this.graph.RemoveEdge(edge);
+                            break;
+                        }
+                    }
+
+
+                    finalDir = Directory.GetParent(finalDir).FullName;
+                }
+                DirectoryInfo temp = new DirectoryInfo(finalDir);
+                if (!this.graph.FindNode(temp.Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                {
+                    this.graph.FindNode(temp.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                }
+
+                found = true;
+            }
+
+            foreach (string file in allFiles)
+            {
+                if (!found)
+                {
+                    // jika nama file ditemukan
+                    if (Path.GetFileName(file) == this.goalState)
+                    {
+                        /*
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(file);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        visited[file] = true;
+                        */
+                        DirectoryInfo dirInfo = new DirectoryInfo(start);
+                        DirectoryInfo parentInfo;
+                        if (start.Equals(this.startingDir) )
+                        {
+                            parentInfo = new DirectoryInfo(start);
+                        }
+                        else
+                        {
+                            parentInfo = new DirectoryInfo(Directory.GetParent(start).FullName);
+                        }
+                        if (dikunjungi.Contains(Path.GetFileName(file)))
+                        {
+                            string fileNode;
+
+                            DirectoryInfo prevNodeFileInfo = new DirectoryInfo(start);
+                            string prevNodeFile = prevNodeFileInfo.Name;
+                            fileNode = prevNodeFile + "/" + Path.GetFileName(file);
+                            while (dikunjungi.Contains(fileNode) && prevNodeFile != this.startingDir)
+                            {
+                                prevNodeFileInfo = new DirectoryInfo(Directory.GetParent(prevNodeFile).FullName);
+                                prevNodeFile = prevNodeFileInfo.Name;
+                                fileNode = prevNodeFile + "/" + Path.GetFileName(file);
+
+                            }
+
+
+
+                            if (dikunjungi.Contains(parentInfo.Name+ "/" + dirInfo.Name))
+                            {
+                                this.graph.AddEdge(parentInfo.Name + "/" + dirInfo.Name, fileNode).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            }
+                            else
+                            {
+                                this.graph.AddEdge(dirInfo.Name, fileNode).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            }
+                            this.graph.FindNode(fileNode).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                            dikunjungi.Add(fileNode);
+                        }
+                        else
+                        {
+                            if (dikunjungi.Contains(parentInfo.Name + "/" + dirInfo.Name))
+                            {
+                                this.graph.AddEdge(parentInfo.Name + "/" + dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            }
+                            else
+                            {
+                                this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                            }
+                                
+                            this.graph.FindNode(Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                            this.dikunjungi.Add(Path.GetFileName(file));
+                        }
+
+                        string finalDir = Directory.GetParent(file).FullName;
+                        DirectoryInfo startDirectoryInfo = new DirectoryInfo(this.startingDir);
+                        while (finalDir != this.startingDir)
+                        {
+                            DirectoryInfo nextNode = new DirectoryInfo(finalDir);
+                            DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
+                            DirectoryInfo GrandpaDir;
+                            if (prevNode.Name != startDirectoryInfo.Name)
+                            {
+                                GrandpaDir = new DirectoryInfo(Directory.GetParent(Directory.GetParent(finalDir).FullName).FullName);
+
+                            }
+                            else
+                            {
+                                GrandpaDir = prevNode;
+                            }
+                            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
+                            {
+                                Console.WriteLine(nextNode.Name);
+
+                                if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name))
+                                {
+                                    this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.FindNode(nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.RemoveEdge(edge);
+
+                                    break;
+                                }
+                                else if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(prevNode.Name + "/" + nextNode.Name))
+                                {
+                                    this.graph.AddEdge(prevNode.Name, prevNode.Name + "/" + nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.FindNode(prevNode.Name + "/" + nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.RemoveEdge(edge);
+                                    break;
+                                }
+                                else if (edge.SourceNode.LabelText.Equals(GrandpaDir.Name + "/" + prevNode.Name) && edge.TargetNode.LabelText.Equals(prevNode.Name + "/" + nextNode.Name))
+                                {
+                                    this.graph.AddEdge(GrandpaDir.Name + "/" + prevNode.Name, prevNode.Name + "/" + nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.FindNode(prevNode.Name + "/" + nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.RemoveEdge(edge);
+                                    break;
+                                }
+                                else if (edge.SourceNode.LabelText.Equals(GrandpaDir.Name + "/" + prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name)){
+                                    this.graph.AddEdge(GrandpaDir.Name + "/" + prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.FindNode(nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                                    this.graph.RemoveEdge(edge);
+                                    break;
+                                }
+                            }
+                            
+                            
+                            finalDir = Directory.GetParent(finalDir).FullName;
+                        }
+                        DirectoryInfo temp = new DirectoryInfo(this.startingDir);
+                        this.graph.FindNode(temp.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+
+                        // jika bukan All Occurence, maka pencarian berakhir
+                        if (!isAll)
+                        {
+                            found = true;
+                            //Environment.Exit(0);
+                            //return;
+                        }
+                    }
+                    else
+                    {
+                        DirectoryInfo parentInfo;
+                        DirectoryInfo dirInfo = new DirectoryInfo(start);
+                        if (start.Equals(this.startingDir))
+                        {
+                            parentInfo = new DirectoryInfo(start);
+                        }
+                        else
+                        {
+                            parentInfo = new DirectoryInfo(Directory.GetParent(start).FullName);
+                        }
+                        if (dikunjungi.Contains(Path.GetFileName(file)))
+                        {
+                            string fileNode;
+
+                            DirectoryInfo prevNodeFileInfo = new DirectoryInfo(start);
+                            string prevNodeFile = prevNodeFileInfo.Name;
+                            fileNode = prevNodeFile + "/" + Path.GetFileName(file);
+                            while (dikunjungi.Contains(fileNode) && prevNodeFile != this.startingDir)
+                            {
+                                prevNodeFileInfo = new DirectoryInfo(Directory.GetParent(prevNodeFile).FullName);
+                                prevNodeFile = prevNodeFileInfo.Name;
+                                fileNode = prevNodeFile + "/" + Path.GetFileName(file);
+
+                            }
+                            if (dikunjungi.Contains(parentInfo.Name + "/" + dirInfo.Name))
+                            {
+                                this.graph.AddEdge(parentInfo.Name + "/" + dirInfo.Name, fileNode).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            }
+                            else
+                            {
+                                this.graph.AddEdge(dirInfo.Name, fileNode).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            }
+                            this.graph.FindNode(fileNode).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                            dikunjungi.Add(fileNode);
+
+                        }
+                        else
+                        {
+                            if (dikunjungi.Contains(parentInfo.Name + "/" + dirInfo.Name))
+                            {
+                                this.graph.AddEdge(parentInfo.Name + "/" + dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            }
+                            else
+                            {
+                                this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                            }
+
+                            this.graph.FindNode(Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                            this.dikunjungi.Add(Path.GetFileName(file));
+                        }
+
+                        string finalDir = Directory.GetParent(file).FullName;
+                        DirectoryInfo startDirectoryInfo = new DirectoryInfo(this.startingDir);
+                        while (finalDir != this.startingDir)
+                        {
+                            DirectoryInfo nextNode = new DirectoryInfo(finalDir);
+                            DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
+                            DirectoryInfo GrandpaDir;
+                            if (prevNode.Name != startDirectoryInfo.Name)
+                            {
+                                GrandpaDir = new DirectoryInfo(Directory.GetParent(Directory.GetParent(finalDir).FullName).FullName);
+
+                            }
+                            else
+                            {
+                                GrandpaDir = prevNode;
+                            }
+                            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
+                            {
+                                Console.WriteLine(nextNode.Name);
+
+                                if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                                {
+                                    this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.FindNode(nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.RemoveEdge(edge);
+
+                                    break;
+                                }
+                                else if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(prevNode.Name + "/" + nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                                {
+                                    this.graph.AddEdge(prevNode.Name, prevNode.Name + "/" + nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.FindNode(prevNode.Name + "/" + nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.RemoveEdge(edge);
+                                    break;
+                                }
+                                else if (edge.SourceNode.LabelText.Equals(GrandpaDir.Name + "/" + prevNode.Name) && edge.TargetNode.LabelText.Equals(prevNode.Name + "/" + nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                                {
+                                    this.graph.AddEdge(GrandpaDir.Name + "/" + prevNode.Name, prevNode.Name + "/" + nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.FindNode(prevNode.Name + "/" + nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.RemoveEdge(edge);
+                                    break;
+                                }
+                                else if (edge.SourceNode.LabelText.Equals(GrandpaDir.Name + "/" + prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                                {
+                                    this.graph.AddEdge(GrandpaDir.Name + "/" + prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.FindNode(nextNode.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                                    this.graph.RemoveEdge(edge);
+                                    break;
+                                }
+                            }
+
+
+                            finalDir = Directory.GetParent(finalDir).FullName;
+                        }
+                        DirectoryInfo temp = new DirectoryInfo(finalDir);
+                        if (!this.graph.FindNode(temp.Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        {
+                            this.graph.FindNode(temp.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                        }
+
+
+                    }
+                }
+                
+            }
+            if (!found) // belum ketemu atau bukan All Occurence
+            {
+                visited[start] = false;
+                foreach (string dir in allDir)
+                {
+                    if (visited[dir] == false)
+                    {
+                        DirectoryInfo dirInfo = new DirectoryInfo(start);
+                        DirectoryInfo nextInfo = new DirectoryInfo(dir);
+                        if (!this.dikunjungi.Contains(nextInfo.Name))
+                        {
+                            this.graph.AddEdge(dirInfo.Name, nextInfo.Name);
+                            dikunjungi.Add(nextInfo.Name);
+                        }
+                        else
+                        {
+                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + nextInfo.Name);
+                            dikunjungi.Add(dirInfo.Name + "/" + nextInfo.Name);
+                        }
+                        
+                        
+                        search(dir); // rekurens
+                    }
+                }
+                visited[start] = false;
+            }
+        }
+*/

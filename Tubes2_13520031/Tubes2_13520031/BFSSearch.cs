@@ -71,8 +71,21 @@ namespace Tubes2_13520031
             }
         }
 
+        public void removeAllGoalDirectory()
+        {
+            foreach(string s in this.goalDirectory.ToList())
+            {
+                this.goalDirectory.Remove(s);
+            }
+        }
+
+        public void removeAllAntrian()
+        {
+            this.antrian.Clear();
+        }
+
         public (Microsoft.Msagl.Drawing.Graph graphResult, List<string> goalDirectory) Search()
-        {            
+        {
             //Console.WriteLine("All occurence: " + this.isAll);
             //Console.WriteLine(this.startingDir);
             this.dikunjungi.Add(this.startingDir);
@@ -150,12 +163,8 @@ namespace Tubes2_13520031
                     if (!this.graph.FindNode(temp.Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
                     {
                         this.graph.FindNode(temp.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
-                    }
-
-                    
+                    }     
                 }
-
-
 
                 foreach (string file in allFiles)
                 {
@@ -389,12 +398,13 @@ namespace Tubes2_13520031
 
                             finalDir = Directory.GetParent(finalDir).FullName;
                         }
-                        //DirectoryInfo temp2 = new DirectoryInfo(finalDir);
-                        //if (!this.graph.FindNode((new DirectoryInfo(finalDir)).Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
-                        //{
+                        DirectoryInfo temp2 = new DirectoryInfo(finalDir);
+                        if (!this.graph.FindNode(temp2.Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        {
                         //Microsoft.Msagl.Drawing.Node temp = this.graph.FindNode(finalDir);
-                            this.graph.FindNode((new DirectoryInfo(finalDir)).Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
-                        //}
+                            this.graph.FindNode(temp2.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                        }
+
                     }
                 }
                 if (!found || isAll)

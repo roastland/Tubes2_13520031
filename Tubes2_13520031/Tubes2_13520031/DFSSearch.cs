@@ -43,6 +43,44 @@ namespace Tubes2_13520031
         {
             this.isAll = isAll;
         }
+        public List<string> getGoalDirectory()
+        {
+            return this.goalDirectory;
+        }
+
+        public void removeAllGraph()
+        {
+            foreach (Microsoft.Msagl.Drawing.Edge e in this.graph.Edges.ToList())
+            {
+                this.graph.RemoveEdge(e);
+            }
+            foreach (Microsoft.Msagl.Drawing.Node n in this.graph.Nodes.ToList())
+            {
+                this.graph.RemoveNode(n);
+            }
+        }
+
+        public void removeAllDikunjungi()
+        {
+            foreach (string s in this.dikunjungi.ToList())
+            {
+                this.dikunjungi.Remove(s);
+            }
+        }
+
+        public void removeAllGoalDirectory()
+        {
+            foreach (string s in this.goalDirectory.ToList())
+            {
+                this.goalDirectory.Remove(s);
+            }
+        }
+
+        public void removeAllVisited()
+        {
+            visited.Clear();
+        }
+
 
         public void initializeVisited(string starting) // inisialisasi value pada dictionary dengan false
         {
@@ -56,6 +94,8 @@ namespace Tubes2_13520031
                 initializeVisited(dir);
             }
         }
+
+
 
         /*
         public void search(string start)
@@ -196,7 +236,10 @@ namespace Tubes2_13520031
                         Console.ForegroundColor = ConsoleColor.Gray;
                         visited[file] = true;
                         */
-                        this.goalDirectory.Add(file);
+                        if (!this.goalDirectory.Contains(file))
+                        {
+                            this.goalDirectory.Add(file);
+                        }
                         DirectoryInfo dirInfo = new DirectoryInfo(start);
                         DirectoryInfo parentInfo;
                         if (start.Equals(this.startingDir) )
@@ -435,15 +478,13 @@ namespace Tubes2_13520031
                             this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + nextInfo.Name);
                             dikunjungi.Add(dirInfo.Name + "/" + nextInfo.Name);
                         }
-
-
                         search(dir); // rekurens
                     }
                 }
                 visited[start] = false;
             }
         }
-        public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) DFSearch(string start)
+        public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) DFSearch()
         {
             initializeVisited(startingDir);
             search(startingDir);

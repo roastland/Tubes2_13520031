@@ -271,10 +271,6 @@ namespace Tubes2_13520031
             this.title.TabIndex = 9;
             this.title.Text = "Folder Crawler";
             // 
-            // searchWorker
-            // 
-            //this.searchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchFile);
-            // 
             // outputTextPanel
             // 
             this.outputTextPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
@@ -329,7 +325,7 @@ namespace Tubes2_13520031
             // pathDirectory
             // 
             this.pathDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pathDirectory.Location = new System.Drawing.Point(20, 19);
+            this.pathDirectory.Location = new System.Drawing.Point(21, 12);
             this.pathDirectory.Name = "pathDirectory";
             this.pathDirectory.Size = new System.Drawing.Size(199, 20);
             this.pathDirectory.TabIndex = 1;
@@ -353,13 +349,13 @@ namespace Tubes2_13520031
             this.tableLayoutPath.ColumnCount = 1;
             this.tableLayoutPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPath.Location = new System.Drawing.Point(23, 42);
+            this.tableLayoutPath.Location = new System.Drawing.Point(25, 42);
             this.tableLayoutPath.MinimumSize = new System.Drawing.Size(949, 58);
             this.tableLayoutPath.Name = "tableLayoutPath";
             this.tableLayoutPath.RowCount = 1;
             this.tableLayoutPath.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPath.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPath.Size = new System.Drawing.Size(970, 58);
+            this.tableLayoutPath.Size = new System.Drawing.Size(970, 77);
             this.tableLayoutPath.TabIndex = 3;
             // 
             // MainForm

@@ -100,61 +100,6 @@ namespace Tubes2_13520031
                 initializeVisited(dir);
             }
         }
-
-
-
-        /*
-        public void search(string start)
-        {
-            string[] allDir = Directory.GetDirectories(start);
-            string[] allFiles = Directory.GetFiles(start);
-            Console.WriteLine(start);
-            // Basis: file ditemukan (untuk not isAll Occurence)
-            // atau pencarian berakhir untuk semua file dan directory yg ada pada parent directory
-            foreach (string file in allFiles)
-            {
-                if (!found)
-                {
-                    // jika nama file ditemukan
-                    if (Path.GetFileName(file) == this.goalState)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(file);
-                        this.goalDirectory.Add(file);
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        visited[file] = true;
-                        // jika bukan All Occurence, maka pencarian berakhir
-                        if (!isAll)
-                        {
-                            found = true;
-                            //Environment.Exit(0);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine(file);
-                        visited[file] = true;
-                    }
-                }
-            }
-            if (!found) // belum ketemu atau bukan All Occurence
-            {
-                visited[start] = false;
-                foreach (string dir in allDir)
-                {
-                    if (visited[dir] == false)
-                    {
-                        //Console.WriteLine(dir);
-                        if (!found)
-                        {
-                            search(dir); // rekurens
-                        }
-                    }
-                }
-                visited[start] = false;
-            }
-        } */
-
             
         public void search(string start)
         {
@@ -499,13 +444,3 @@ namespace Tubes2_13520031
         }
     }
 }
-/* class Driver
-{
-    static void Main(string[] args)
-    {
-        string path = @"D:\SEMESTER 4\IF2211 Strategi Algoritma\Tugas\Home";
-        string goal = @"not.jpeg";
-        DFS searcher = new DFS(path, goal, false);
-        searcher.DFSearch(path);
-    }
-} */

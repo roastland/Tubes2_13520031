@@ -17,7 +17,6 @@ namespace Tubes2_13520031
         private BFSSearch bfs;
         private DFSSearch dfs;
         private Stopwatch stopwatch;
-        private string searchMethodChosen;
         private Microsoft.Msagl.Drawing.Graph mainGraph;
 
         public MainForm()

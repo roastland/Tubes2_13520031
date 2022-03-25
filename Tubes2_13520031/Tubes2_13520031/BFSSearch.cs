@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Tubes2_13520031
 {
@@ -14,6 +15,7 @@ namespace Tubes2_13520031
         private string goalState;
         private bool isAll;
         private Microsoft.Msagl.Drawing.Graph graph;
+        //private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
         private List<string> goalDirectory;
 
 
@@ -24,7 +26,8 @@ namespace Tubes2_13520031
             this.dikunjungi = new List<string>();
             this.goalState = goalState;
             this.isAll = isAll;
-            this.graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            this.graph = new Microsoft.Msagl.Drawing.Graph();
+            //this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
             this.goalDirectory = new List<String>();
         }
 
@@ -42,135 +45,36 @@ namespace Tubes2_13520031
         {
             this.isAll = isAll;
         }
-        /*
-        public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) Search()
+
+        public List<string> getGoalDirectory()
         {
+            return this.goalDirectory;
+        }
+
+        public void removeAllGraph()
+        {
+            foreach(Microsoft.Msagl.Drawing.Edge e in this.graph.Edges.ToList())
+            {
+                this.graph.RemoveEdge(e);
+            }
+            foreach (Microsoft.Msagl.Drawing.Node n in this.graph.Nodes.ToList())
+            {
+                this.graph.RemoveNode(n);
+            }
+        }
+
+        public void removeAllDikunjungi()
+        {
+            foreach(string s in this.dikunjungi.ToList())
+            {
+                this.dikunjungi.Remove(s);
+            }
+        }
+
+        public (Microsoft.Msagl.Drawing.Graph graphResult, List<string> goalDirectory) Search()
+        {            
+            //Console.WriteLine("All occurence: " + this.isAll);
             //Console.WriteLine(this.startingDir);
-            //Console.WriteLine(this.isAll);
-            this.dikunjungi.Add(this.startingDir);
-            this.antrian.Enqueue(this.startingDir);
-            bool found = false;
-            while (this.antrian.Count > 0)
-            {
-                //string holder = new DirectoryInfo(this.antrian.Dequeue()).Name;
-                string holder = this.antrian.Dequeue();
-
-                //Mencari file dan atau folder yang bertetangga dengan folder  holder
-                string[] allDir = Directory.GetDirectories(holder);
-                string[] allFiles = Directory.GetFiles(holder);
-
-                foreach (string file in allFiles)
-                {
-                    DirectoryInfo dirInfo = new DirectoryInfo(holder);
-
-                    if (Path.GetFileName(file) == goalState)
-                    {
-                        //this.foundPath.Add(file);
-                        if (!goalDirectory.Contains(file))
-                        {
-                            goalDirectory.Add(file);
-                        }
-                        if (dikunjungi.Contains(Path.GetFileName(file)))
-                        {
-                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-                            this.graph.FindNode(dirInfo.Name + "/" + Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
-                        }
-                        else
-                        {
-                            this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-                            this.graph.FindNode(Path.GetFileName(file)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
-                            this.dikunjungi.Add(Path.GetFileName(file));
-                        }
-                        string finalDir = Directory.GetParent(file).FullName;
-                        while (finalDir != this.startingDir)
-                        {
-                            DirectoryInfo nextNode = new DirectoryInfo(finalDir);
-                            DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
-                            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
-                            {
-                                //Console.WriteLine(edge.Attr.Color);
-
-                                if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name))
-                                {
-                                    this.graph.RemoveEdge(edge);
-
-                                    break;
-                                }
-                            }
-                            this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Green;
-                            finalDir = Directory.GetParent(finalDir).FullName;
-                        }
-                        found = true;
-                        if (!isAll)
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        //this.notFoundPath.Add(file);
-                        if (dikunjungi.Contains(Path.GetFileName(file)))
-                        {
-                            this.graph.AddEdge(dirInfo.Name, dirInfo.Name + "/" + Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-                        }
-                        else
-                        {
-                            this.graph.AddEdge(dirInfo.Name, Path.GetFileName(file)).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-                            this.dikunjungi.Add(Path.GetFileName(file));
-                        }
-                        string finalDir = Directory.GetParent(file).FullName;
-                        while (finalDir != this.startingDir)
-                        {
-                            DirectoryInfo nextNode = new DirectoryInfo(finalDir);
-                            DirectoryInfo prevNode = new DirectoryInfo(Directory.GetParent(finalDir).FullName);
-                            foreach (Microsoft.Msagl.Drawing.Edge edge in this.graph.Edges)
-                            {
-                               // Console.WriteLine(edge.Attr.Color.GetType());
-                                //Console.WriteLine(Microsoft.Msagl.Drawing.Color.Green);
-                                if (edge.SourceNode.LabelText.Equals(prevNode.Name) && edge.TargetNode.LabelText.Equals(nextNode.Name) && !edge.Attr.Color.Equals(Microsoft.Msagl.Drawing.Color.Green))
-                                {
-                                    this.graph.RemoveEdge(edge);
-                                    this.graph.AddEdge(prevNode.Name, nextNode.Name).Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
-
-                                    break;
-                                }
-                            }
-                            finalDir = Directory.GetParent(finalDir).FullName;
-                        }
-                    }
-                }
-                if (!found || isAll)
-                {
-                    foreach (string dir in allDir)
-                    {
-                        DirectoryInfo dirInfo = new DirectoryInfo(dir);
-                        DirectoryInfo holderInfo = new DirectoryInfo(holder);
-                        if (!this.dikunjungi.Contains(dir))
-                        {
-                            this.graph.AddEdge(holderInfo.Name, dirInfo.Name);
-                            antrian.Enqueue(dir);
-                            dikunjungi.Add(dir);
-                        }
-                    }
-
-                }
-                if (!isAll && found)
-                {
-                    break;
-                }
-            }
-            Console.WriteLine("Find all: " + isAll);
-            foreach(string s in goalDirectory)
-            {
-                Console.WriteLine(s);
-            }
-            return (this.graph, this.goalDirectory);
-        } */
-
-        public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) Search()
-        {
-            Console.WriteLine("All occurence: " + this.isAll);
-            Console.WriteLine(this.startingDir);
             this.dikunjungi.Add(this.startingDir);
             this.antrian.Enqueue(this.startingDir);
             bool found = false;
@@ -367,12 +271,12 @@ namespace Tubes2_13520031
                         DirectoryInfo temp = new DirectoryInfo(this.startingDir);
                         this.graph.FindNode(temp.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                         found = true;
+                        if (!this.goalDirectory.Contains(file))
+                        {
+                            this.goalDirectory.Add(file);
+                        }
                         if (!isAll)
                         {
-                            if (!this.goalDirectory.Contains(file))
-                            {
-                                this.goalDirectory.Add(file);
-                            }
                             break;
                         }
 
@@ -485,11 +389,12 @@ namespace Tubes2_13520031
 
                             finalDir = Directory.GetParent(finalDir).FullName;
                         }
-                        DirectoryInfo temp = new DirectoryInfo(finalDir);
-                        if (!this.graph.FindNode(temp.Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
-                        {
-                            this.graph.FindNode(temp.Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
-                        }
+                        //DirectoryInfo temp2 = new DirectoryInfo(finalDir);
+                        //if (!this.graph.FindNode((new DirectoryInfo(finalDir)).Name).Attr.FillColor.Equals(Microsoft.Msagl.Drawing.Color.Green))
+                        //{
+                        //Microsoft.Msagl.Drawing.Node temp = this.graph.FindNode(finalDir);
+                            this.graph.FindNode((new DirectoryInfo(finalDir)).Name).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                        //}
                     }
                 }
                 if (!found || isAll)
@@ -506,14 +411,14 @@ namespace Tubes2_13520031
                     Console.WriteLine("MASUK");
                     break;
                 }
-
-
-
             }
 
+            //viewer.Graph = graph;
+            //viewer.Graph = mainGraph;
+            //graphPanel.SuspendLayout();
+            //viewer.Dock = DockStyle.Fill;
+            //viewer.ToolBarIsVisible = false;
             return (this.graph, this.goalDirectory);
-
-
         }
         
         public void AddDirNode (string dir, string holder)

@@ -273,7 +273,7 @@ namespace Tubes2_13520031
             // 
             // searchWorker
             // 
-            this.searchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchFile);
+            //this.searchWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchFile);
             // 
             // outputTextPanel
             // 

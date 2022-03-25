@@ -59,6 +59,7 @@ namespace Tubes2_13520031
             this.pathDirectory = new System.Windows.Forms.Label();
             this.pathDirectoryPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPath = new System.Windows.Forms.TableLayoutPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.searchButtonPanel.SuspendLayout();
             this.searchMethodPanel.SuspendLayout();
             this.fileNamePanel.SuspendLayout();
@@ -67,6 +68,7 @@ namespace Tubes2_13520031
             this.outputTextPanel.SuspendLayout();
             this.timeAndDirectoryPanel.SuspendLayout();
             this.pathDirectoryPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // inputFileNameText
@@ -101,6 +103,7 @@ namespace Tubes2_13520031
             // searchButtonPanel
             // 
             this.searchButtonPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(28)))), ((int)(((byte)(50)))));
+            this.searchButtonPanel.Controls.Add(this.pictureBox1);
             this.searchButtonPanel.Controls.Add(this.searchButton);
             this.searchButtonPanel.Controls.Add(this.searchMethodPanel);
             this.searchButtonPanel.Controls.Add(this.fileNamePanel);
@@ -325,7 +328,7 @@ namespace Tubes2_13520031
             // pathDirectory
             // 
             this.pathDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pathDirectory.Location = new System.Drawing.Point(21, 12);
+            this.pathDirectory.Location = new System.Drawing.Point(21, 3);
             this.pathDirectory.Name = "pathDirectory";
             this.pathDirectory.Size = new System.Drawing.Size(199, 20);
             this.pathDirectory.TabIndex = 1;
@@ -349,14 +352,25 @@ namespace Tubes2_13520031
             this.tableLayoutPath.ColumnCount = 1;
             this.tableLayoutPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPath.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPath.Location = new System.Drawing.Point(25, 42);
+            this.tableLayoutPath.Location = new System.Drawing.Point(25, 26);
             this.tableLayoutPath.MinimumSize = new System.Drawing.Size(949, 58);
             this.tableLayoutPath.Name = "tableLayoutPath";
             this.tableLayoutPath.RowCount = 1;
             this.tableLayoutPath.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPath.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPath.Size = new System.Drawing.Size(970, 77);
+            this.tableLayoutPath.Size = new System.Drawing.Size(970, 93);
             this.tableLayoutPath.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox1.Image = global::Tubes2_13520031.Properties.Resources.pngegg;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 626);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(506, 100);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
@@ -374,6 +388,7 @@ namespace Tubes2_13520031
             this.Text = "Folder Crawling";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.searchButtonPanel.ResumeLayout(false);
+            this.searchButtonPanel.PerformLayout();
             this.searchMethodPanel.ResumeLayout(false);
             this.searchMethodPanel.PerformLayout();
             this.fileNamePanel.ResumeLayout(false);
@@ -388,6 +403,7 @@ namespace Tubes2_13520031
             this.timeAndDirectoryPanel.PerformLayout();
             this.pathDirectoryPanel.ResumeLayout(false);
             this.pathDirectoryPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -421,6 +437,7 @@ namespace Tubes2_13520031
         private System.Windows.Forms.TableLayoutPanel tableLayoutPath;
         private System.Windows.Forms.Label fileExtInstructionText;
         private System.Windows.Forms.CheckBox findAllOccurence;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

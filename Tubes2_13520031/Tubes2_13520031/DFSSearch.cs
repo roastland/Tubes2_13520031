@@ -43,6 +43,7 @@ namespace Tubes2_13520031
         {
             this.isAll = isAll;
         }
+
         public List<string> getGoalDirectory()
         {
             return this.goalDirectory;
@@ -79,6 +80,11 @@ namespace Tubes2_13520031
         public void removeAllVisited()
         {
             visited.Clear();
+        }
+
+        public void resetIsFound()
+        {
+            this.found = false;
         }
 
 
@@ -486,6 +492,7 @@ namespace Tubes2_13520031
         }
         public (Microsoft.Msagl.Drawing.Graph graph, List<String> goalDirectory) DFSearch()
         {
+            resetIsFound();
             initializeVisited(startingDir);
             search(startingDir);
             return (this.graph, this.goalDirectory);

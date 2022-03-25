@@ -19,8 +19,6 @@ namespace Tubes2_13520031
         private Stopwatch stopwatch;
         private string searchMethodChosen;
         private Microsoft.Msagl.Drawing.Graph mainGraph;
-        //private List<String> goalDirectory;
-        //private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
 
         public MainForm()
         {
@@ -67,7 +65,7 @@ namespace Tubes2_13520031
             else
             {
                 Microsoft.Msagl.GraphViewerGdi.GViewer viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
-                this.searchMethodChosen = searchMethod.Text;
+                //this.searchMethodChosen = searchMethod.Text;
                 tableLayoutPath.RowStyles.Clear();
                 //tableLayoutPath.AutoScroll = true;
                 tableLayoutPath.AutoSize = true;
@@ -98,6 +96,7 @@ namespace Tubes2_13520031
                     dfs.removeAllDikunjungi();
                     dfs.removeAllGoalDirectory();
                     dfs.removeAllVisited();
+                    //dfs.resetIsAll();
 
                     stopwatch.Start(); // mulai hitung waktu eksekusi
                     this.mainGraph = dfs.DFSearch().graph;
@@ -112,6 +111,7 @@ namespace Tubes2_13520031
                 graphPanel.Controls.Clear();
                 graphPanel.SuspendLayout();
                 viewer.Dock = DockStyle.Fill;
+                viewer.OutsideAreaBrush = Brushes.White;
                 viewer.ToolBarIsVisible = false;
                 graphPanel.Controls.Add(viewer);
                 graphPanel.ResumeLayout();
@@ -137,18 +137,9 @@ namespace Tubes2_13520031
                         tableLayoutPath.RowCount ++;
                         tableLayoutPath.Controls.Add(linklabel);
                     }
-                    tableLayoutPath.RowCount --;
+                    //tableLayoutPath.RowCount --;
                     pathDirectoryPanel.ResumeLayout();
-                    Console.WriteLine(tableLayoutPath.RowCount);
-                    /*if (tableLayoutPath.RowCount > 3)
-                    // tambah scroll jika tingginya lebih dari tinggi minimum
-                    {
-                        ScrollBar verticalScrollBar = new VScrollBar();
-                        verticalScrollBar.Dock = DockStyle.Right;
-                        verticalScrollBar.Scroll += (s, args) => { tableLayoutPath.VerticalScroll.Value = verticalScrollBar.Value; };
-                        tableLayoutPath.Controls.Add(verticalScrollBar);
-                    } */
-                    
+                    //.WriteLine(tableLayoutPath.RowCount);
                 }
             }
         }

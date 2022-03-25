@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BFSSearch.cs" />
+    <Compile Include="DFSSearch.cs" />
     <Compile Include="FolderCrawler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

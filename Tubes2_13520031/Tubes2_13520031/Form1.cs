@@ -15,7 +15,9 @@ namespace Tubes2_13520031
     public partial class MainForm : Form
     {
         private BFSSearch bfs;
+        private DFSSearch dfs;
         private Stopwatch stopwatch;
+        private string searchMethodChosen;
         private Microsoft.Msagl.Drawing.Graph mainGraph;
         //private List<String> goalDirectory;
         private Microsoft.Msagl.GraphViewerGdi.GViewer viewer;
@@ -25,6 +27,7 @@ namespace Tubes2_13520031
             InitializeComponent();
             this.stopwatch = new Stopwatch();
             this.bfs = new BFSSearch(null, null, false);
+            this.dfs = new DFSSearch(null, null, false);
             //this.mainGraph = new Microsoft.Msagl.Drawing.Graph("graph");
             //this.goalDirectory = new List<String>();
             this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
@@ -152,8 +155,15 @@ namespace Tubes2_13520031
             {
                 viewer.Controls.Clear();
             }); */
-            var result = bfs.Search();
-            args.Result = result;
+            if (this.searchMethodChosen == "BFS")
+            {
+                var result = bfs.Search();
+                args.Result = result;
+            } else
+            {
+                var result = dfs.DFSearch(folderBrowserDialog1.SelectedPath);
+                args.Result = result;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -191,6 +201,7 @@ namespace Tubes2_13520031
             }
             else
             {
+                this.searchMethodChosen = searchMethod.Text;
                 if (searchMethod.Text == "BFS")
                 {
                     //graphPanel.Controls.Remove(viewer);
@@ -203,7 +214,11 @@ namespace Tubes2_13520031
                 }
                 else // DFS
                 {
-
+                    dfs.setStartingDir(folderBrowserDialog1.SelectedPath);
+                    dfs.setGoalState(inputFileName.Text);
+                    dfs.setOccurence(findAllOccurence.Checked);
+                    stopwatch.Start(); // mulai hitung waktu eksekusi
+                    searchWorker.RunWorkerAsync();
                 }
             }
         }
